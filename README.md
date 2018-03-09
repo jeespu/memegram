@@ -1,5 +1,4 @@
-# Memegram Web App - School Project 
-[Go to App](https://joosia.github.io/meemi/)
+# Memegram Web App - School Project [Go to App](https://joosia.github.io/meemi/)
 A social web application for sharing, rating and commenting memes, thus the name Memegram. 
 ## Features:
 * Meme feed
