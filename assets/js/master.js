@@ -1,11 +1,13 @@
-$(document).ready(function(){
+$(document).ready(function () {
 
-   $("#sign-up").click(function(){
-      $("#sign-form").css("visibility", "visible");
-      $("#sign-form").css("opacity", "1");
+   var signForm = $("#sign-form");
+   $(".sign-up").mousedown(function () {
+         $(".jumbotron").css("display", "none");
+         signForm.css("position", "relative");
+         signForm.addClass("slide-down");
    });
 
-   $("login").click(function(){
+   $("login").click(function () {
       $("#login-form").css("visibility", "visible");
-   })
+   });
 });
