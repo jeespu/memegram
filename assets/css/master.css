@@ -10,6 +10,7 @@
 
 .jumbotron {
    background: rgba(255,255,255,.75);
+   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 html, body {
@@ -35,6 +36,8 @@ h1,
 
 .vertical-center {
    display: flex;
+   position: relative;
+   top: 50px;
    height: 90%;
    align-items: center;
 }
@@ -70,5 +73,40 @@ a:hover {
 }
 
 #login-form li {
+   background: #222;
+   color: #fff;
    margin: 10px 0;
+}
+
+
+/*–––––––––––––––––*/
+/*– Small devices –*/
+/*–––––––––––––––––*/
+@media (max-width: 576px) {
+   .navbar {
+      box-shadow: none;
+   }
+   #sign-form {
+      position: absolute;
+      border-radius: 0;
+      height: 100%;
+      width: 100%;
+      padding: 0 60px 0 60px;
+      margin: 0;
+      box-shadow: none;
+   }
+
+   .jumbotron {
+      background: rgba(255, 255, 255, .75);
+      border-radius: 0 !important;
+      box-shadow: none;
+   }
+
+   .vertical-center {
+      display: block;
+      height: 100%;
+   }
+   .container-fluid{
+      padding: 0;
+   }
 }
