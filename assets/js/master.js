@@ -1,13 +1,14 @@
 $(document).ready(function () {
 
    var signForm = $("#sign-form");
-   $(".sign-up").mousedown(function () {
-         $(".jumbotron").css("display", "none");
-         signForm.css("position", "relative");
-         signForm.addClass("slide-down");
+   $(".sign-up, .cancel-btn").mousedown(function () {
+      $("#login-form").slideUp("fast");
+      signForm.slideToggle("fast");
    });
 
-   $("login").click(function () {
-      $("#login-form").css("visibility", "visible");
-   });
+   // $("#login").click(function (event) {
+   //    $("#login-form").slideDown("fast");
+   //    signForm.slideUp("fast");
+   //    event.stopPropagation();
+   // });
 });

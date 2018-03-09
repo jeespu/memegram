@@ -13,7 +13,7 @@
 <body>
 
 	<nav class="navbar navbar-inverse navbar-fixed-top">
-		<div class="container-fluid">
+		<div class="container">
 			<!-- Brand and toggle get grouped for better mobile display -->
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
@@ -23,7 +23,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">MEMEGRAM</a>
+				<a class="navbar-brand" href="index.html">MEMEGRAM</a>
 			</div>
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
@@ -44,30 +44,27 @@
 								<input type="text" class="form-control" placeholder="Password">
 							</li>
 							<li>
-								<button class=" col-md-12 btn btn-success">Login</button>
+								<button class=" col-md-12 orange-btn btn btn-warning">Login</button>
 							</li>
 						</ul>
 					</li>
 				</ul>
-			</div>
-			<!-- /.navbar-collapse -->
-		</div>
-		<!-- /.container-fluid -->
+			</div><!-- /.navbar-collapse -->
+		</div><!-- /.container-fluid -->
 	</nav>
 
-	<div id="content" class="container-fluid">
-		<div class="vertical-center">
-			<div class="helper-col col-md-3 col-xs-0"></div>
-			<div class="jumbotron col-md-6">
+	<div id="content" class="container">
+		<div class="row vertical-center">
+			<div class="jumbotron col-md-8">
 				<h1>Hello Memes!</h1>
-				<p>Do you have the best meme ever on mind, but don't have anyone to share it with? Then you've come to the right
-					place! Join now and start sharing your memes with thousands of users.</p>
+				<p>Do you have the best meme ever on mind, but don't have anyone to share it with? Then you've come to the right place!
+					Join now and start sharing your memes with thousands of users.</p>
 				<p>
-					<a class="sign-up btn btn-success btn-lg" href="#" role="button">Sign Up</a>
+					<a class="sign-up orange-btn btn btn-warning btn-lg" href="#" role="button">Sign Up</a>
 				</p>
 			</div>
-			<div id="sign-form" class="col-md-6 col-xs-12">
-				<h1>Sign Up</h1>
+			<div id="sign-form" class="col-md-8">
+				<h1>Sign Up<a class="cancel-btn pull-right">x</a></h1>
 				<form>
 					<div class="form-group">
 						<label for="username">Username:</label>
@@ -87,12 +84,11 @@
 							employees of Memegram Ltd may find useful.
 						</label>
 					</div>
-					<button type="submit" class="btn btn-default">Submit</button>
+					<button type="submit" class="orange-btn btn btn-warning">Submit</button>
 				</form>
 			</div>
-			<div class="helper-col col-md-3 col-xs-0"></div>
 		</div>
-	</div>
+	</div> <!-- container-->
 
 	<script src="assets/lib/jquery.min.js"></script>
 	<script src="assets/lib/bootstrap.min.js"></script>
