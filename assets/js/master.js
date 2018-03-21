@@ -1,14 +1,22 @@
 $(document).ready(function () {
 
+	
    var signForm = $("#sign-form");
-   $(".sign-up, .cancel-btn").mousedown(function () {
-      $("#login-form").slideUp("fast");
+   $(".sign-up, .cancel-btn").on("click", function () {
+      $("#login-form").click(); // closes the login window
       signForm.slideToggle("fast");
    });
 
-   // $("#login").click(function (event) {
-   //    $("#login-form").slideDown("fast");
-   //    signForm.slideUp("fast");
-   //    event.stopPropagation();
-   // });
+    $("#login").on("click", function () {
+       if (signForm.css("display", "block")) {
+			signForm.slideUp("fast");
+		 }
+    });
+	
+	// Add memes test
+	$("#test-btn").on("click", function(){
+		$(".meme-container").html('<img class="meme-img" src="https://fthmb.tqn.com/onZS-nRlttC_o-4JSQEXImdfL3E=/768x0/filters:no_upscale()/success-56a9fd1f3df78cf772abee09.jpg">');	
+	})
+
+	
 });

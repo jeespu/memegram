@@ -29,10 +29,9 @@
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-right">
 					<li>
-						<a class="sign-up">Sign Up</a>
 					</li>
 					<li class="dropdown">
-						<a id="login" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">Login</a>
+						<a id="login" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">Profile</a>
 						<ul id="login-form" class="dropdown-menu" aria-labelledby="dropdownMenu1">
 							<li>
 								<label for="username">Username:</label>
@@ -52,45 +51,24 @@
 		</div><!-- /.container-fluid -->
 	</nav>
 
-	<div id="bg-container">
-		 <img id="frontpage-bg"src="assets/img/memes_bg.png">
-	</div>
-	<div id="content" class="container-fluid">
-		<div class="row vertical-center">
-			<div class="jumbotron col-md-8">
-				<h1>Hello Memes!</h1>
-				<p>Do you have the best meme ever on mind, but don't have anyone to share it with? Then you've come to the right place!
-					Join now and start sharing your memes with thousands of users.</p>
-				<p>
-					<a class="sign-up orange-btn btn btn-warning btn-lg" href="#" role="button">Sign Up</a>
-				</p>
-			</div>
-			<div id="sign-form" class="col-md-8">
-				<h1>Sign Up<a class="cancel-btn pull-right">x</a></h1>
-				<form>
-					<div class="form-group">
-						<label for="username">Username:</label>
-						<input type="text" class="form-control" id="username" placeholder="Enter username">
-					</div>
-					<div class="form-group">
-						<label for="email1">Email address</label>
-						<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
-					</div>
-					<div class="form-group">
-						<label for="password">Password</label>
-						<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-					</div>
-					<div class="checkbox">
-						<label>
-							<input type="checkbox"> I agree to become an obedient servant of Memegram Ltd, and to give up all my property and other resources that the
-							employees of Memegram Ltd may find useful.
-						</label>
-					</div>
-					<button type="submit" class="orange-btn btn btn-warning">Submit</button>
-				</form>
-			</div>
+	<div id="content" class="container">
+		<div id="test-btn" style="height:50px; width:50px;background: pink; cursor: pointer; margin: 0 auto;"></div>
+		<div class="row meme-row">
+			<div class="col-md-4 meme-container"></div>
+			<div class="col-md-4 meme-container"></div>
+			<div class="col-md-4 meme-container"></div>
 		</div>
-	</div> <!-- container-->
+		<div class="row meme-row">
+			<div class="col-md-4 meme-container"></div>
+			<div class="col-md-4 meme-container"></div>
+			<div class="col-md-4 meme-container"></div>
+		</div>
+		<div class="row meme-row">
+			<div class="col-md-4 meme-container"></div>
+			<div class="col-md-4 meme-container"></div>
+			<div class="col-md-4 meme-container"></div>
+		</div>
+	</div><!-- container -->
 
 	<script src="assets/lib/jquery.min.js"></script>
 	<script src="assets/lib/bootstrap.min.js"></script>
