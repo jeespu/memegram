@@ -4,13 +4,13 @@ html {
 }
 
 body {
-	height: 100%;
+   height: 100%;
    margin: 0;
    padding-top: 70px; /* nav height + 20px*/
    font-family: "Cabin", sans-serif;
    /*background: #fdbb2d; /* fallback for old browsers */
    background: -webkit-linear-gradient(to bottom, #f58928, #351b5d);
-   background: linear-gradient(to bottom, #f58928, #351b5d);*/
+   background: linear-gradient(to bottom, #f58928, #351b5d);
    /*background: url("../img/memes_bg.png") no-repeat; 
    background-position: center;
    background-size: cover;*/
@@ -50,8 +50,8 @@ a:hover {
 .meme-row {
 	padding-top: 30px;
 }
-.meme-container {
-}
+/* .meme-container {
+} */
 
 .meme-img {
 	max-height: 100%;
@@ -126,5 +126,4 @@ a:hover {
    .jumbotron {
       border-radius: 0 !important;
 }
-   }
 }
