@@ -1,5 +1,7 @@
- <?php
-$servername = " den1.mysql6.gear.host ";
+
+
+<?php
+$servername = "den1.mysql6.gear.host";
 $username = "memesite";
 $password = "Vp4F7y!3!0b9";
 $dbname = "memesite";
