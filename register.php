@@ -1,22 +1,22 @@
 <?php
 $servername = "den1.mysql6.gear.host";
-$username = "memesite";
-$password = "Vp4F7y!3!0b9";
+$serverusername = "memesite";
+$serverpassword = "Vp4F7y!3!0b9";
 $dbname = "memesite";
 
-$user = $_REQUEST["username"];
+$username = $_REQUEST["username"];
 $email = $_REQUEST["email"];
-$name = $_REQUEST["name"];
+$password = $_REQUEST["password"];
 
 // Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli($servername, $serverusername, $serverpassword, $dbname);
 // Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
 $sql = "INSERT INTO user (username, email, password)
-VALUES ('John', 'Doe', 'john@example.com')";
+VALUES ($username, $email , $password)";
 
 if ($conn->query($sql) === TRUE) {
     echo "New record created successfully";
