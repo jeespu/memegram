@@ -6,7 +6,7 @@ $dbname = "memesite";
 
 $user = $_REQUEST['username'];
 $email = $_REQUEST['email'];
-$pass = $_REQUEST['password'];
+$pass = md5($_REQUEST['password']);
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -16,7 +16,7 @@ if ($conn->connect_error) {
 }
 
 $sql = "INSERT INTO user (username, email, password)
-VALUES ('$user', '$email', 'md5($pass)')";
+VALUES ('$user', '$email', '$pass')";
 
 if ($conn->query($sql) === TRUE) {
     echo "New record created successfully";
