@@ -6,7 +6,7 @@ $dbname = "memesite";
 
 $user = $_REQUEST['username'];
 $email = $_REQUEST['email'];
-$pass = password_hash($_REQUEST['password']);
+$pass = password_hash($_REQUEST['password'], PASSWORD_DEFAULT);
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -19,11 +19,11 @@ $sql = "INSERT INTO user (username, email, password)
 VALUES ('$user', '$email', '$pass')";
 
 if ($conn->query($sql) === TRUE) {
-    // echo "New record created successfully";
-    // PHP permanent URL redirection test
+    // Redirect to Feed -page
     header("Location: http://memeproject.gearhostpreview.com/feed.html", true, 301);
 exit();
 } else {
+    // If error occurs
     echo "Error: " . $sql . "<br>" . $conn->error;
 }
 
