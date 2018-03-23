@@ -6,7 +6,7 @@ $dbname = "memesite";
 
 $user = $_REQUEST['username'];
 $email = $_REQUEST['email'];
-$pass = $_REQUEST['password'];
+$pass = md5($_REQUEST['password']);
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
