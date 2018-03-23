@@ -1,5 +1,3 @@
-
-
 <?php
 $servername = "den1.mysql6.gear.host";
 $username = "memesite";
@@ -23,4 +21,4 @@ if ($conn->query($sql) === TRUE) {
 }
 
 $conn->close();
-?> 
+?> <script type="text/javascript" src="file.js"></script> <?php
