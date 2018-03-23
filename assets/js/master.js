@@ -25,5 +25,4 @@ $(document).ready(function () {
 			$(".meme-row:last-of-type").css("display", "none");
 		}
 	})
-	
 });
