@@ -15,8 +15,9 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "INSERT INTO user (username, email, password)
-VALUES ($user, $email, $pass)";
+mysql_query("INSERT INTO user (username, email, password)
+VALUES ('$user', '$email', '$pass')")
+or die(mssql_error());
 
 if ($conn->query($sql) === TRUE) {
     echo "New record created successfully";
