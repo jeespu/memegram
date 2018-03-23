@@ -4,9 +4,9 @@ $username = "memesite";
 $password = "Vp4F7y!3!0b9";
 $dbname = "memesite";
 
-$user = $_REQUEST["username"];
-$email = $_REQUEST["email"];
-$pass = $_REQUEST["password"];
+$user = $_POST["username"];
+$email = $_POST["email"];
+$pass = $_POST["password"];
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
