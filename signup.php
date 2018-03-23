@@ -19,15 +19,13 @@ $sql = "INSERT INTO user (username, email, password)
 VALUES ('$user', '$email', '$pass')";
 
 if ($conn->query($sql) === TRUE) {
-    echo "New record created successfully";
+    // echo "New record created successfully";
+    // PHP permanent URL redirection test
+    header("Location: http://memeproject.gearhostpreview.com/feed.html", true, 301);
+exit();
 } else {
     echo "Error: " . $sql . "<br>" . $conn->error;
 }
 
 $conn->close();
-
-// PHP permanent URL redirection test
-header("Location: http://memeproject.gearhostpreview.com/feed.html", true, 301);
-exit();
-
 ?>
