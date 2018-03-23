@@ -16,14 +16,14 @@ if ($conn->connect_error) {
 }
 
 mysql_query("INSERT INTO user (username, email, password)
-VALUES ('john', 'john', 'john')")
+VALUES ('$user', '$email', '$pass')")
 or die(mssql_error());
 
-if ($conn->query($sql) === TRUE) {
-    echo "New record created successfully";
-} else {
-    echo "Error: " . $sql . "<br>" . $conn->error;
-}
+// if ($conn->query($sql) === TRUE) {
+//     echo "New record created successfully";
+// } else {
+//     echo "Error: " . $sql . "<br>" . $conn->error;
+// }
 
 $conn->close();
 ?>
