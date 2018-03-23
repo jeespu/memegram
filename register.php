@@ -16,7 +16,7 @@ if ($conn->connect_error) {
 }
 
 mysql_query("INSERT INTO user (username, email, password)
-VALUES ('$user', '$email', '$pass')")
+VALUES ('john', 'john', 'john')")
 or die(mssql_error());
 
 if ($conn->query($sql) === TRUE) {
