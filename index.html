@@ -2,61 +2,61 @@
 <html>
 
 <head>
-	<!-- Favicon -->
-	<link rel="icon" type="image/png" href="assets/img/fav_unicorn.png">
 	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Meme Site Project</title>
-	<link rel="stylesheet" href="assets/lib/bootstrap4/css/bootstrap.min.css">
+	<link rel="stylesheet" href="assets/lib/bootstrap.min.css">
 	<link rel="stylesheet" href="assets/css/master.css">
 	<link href="https://fonts.googleapis.com/css?family=Cabin:400,600,700|Luckiest+Guy" rel="stylesheet">
-	<link rel="stylesheet" href="assets/lib/font-awesome/css/fa-svg-with-js.css">
 </head>
 
 <body>
+	<nav id="navbar" class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container-fluid">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+				   aria-expanded="false">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="index.html">MEMEGRAM</a>
+			</div>
 
-	<div id="bg-container">
-		<img id="frontpage-bg" src="assets/img/memes_bg.png">
-	</div>
-
-	<!-- Navbar -->
-	<nav id="navbar" class="navbar fixed-top navbar-expand-md navbar-dark bg-dark">
-		<a id="logo" class="navbar-brand" href="#">Memegram</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-		   aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<div class="collapse navbar-collapse" id="navbarSupportedContent">
-			<ul class="navbar-nav ml-auto">
-				<li class="nav-item">
-					<a class="nav-link sign-up" href="#">Sign Up</a>
-				</li>
-				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="#login" id="login-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
-					   aria-expanded="false">Login
-					</a>
-					<div id="login" class="nav-item dropdown-menu dropdown-menu-right" aria-labelledby="login-dropdown">
-						<form action="login.php" method="POST">
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav navbar-right">
+					<li>
+						<a class="sign-up" href="#">Sign Up</a>
+					</li>
+					<li class="dropdown">
+						<a id="login" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">Login</a>
+						<ul id="login-form" class="dropdown-menu" aria-labelledby="dropdownMenu1">
 							<li>
-								<label for="loginusername">Username:</label>
-								<input name="loginusername" type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1" required>
+								<label for="username">Username:</label>
+								<input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
 							</li>
 							<li>
-								<label for="loginpassword">Password:</label>
-								<input name="loginpassword" type="password" class="form-control" placeholder="Password" required>
+								<label for="password">Password:</label>
+								<input type="password" class="form-control" placeholder="Password">
 							</li>
 							<li>
-								<button type="submit" class="col-12 orange-btn btn btn-warning">Login</button>
+								<button class=" col-md-12 orange-btn btn btn-warning">Login</button>
 							</li>
-						</form>
-					</div>
-				</li>
-			</ul>
-		</div>
+						</ul>
+					</li>
+				</ul>
+			</div><!-- /.navbar-collapse -->
+		</div><!-- /.container-fluid -->
 	</nav>
 
+	<div id="bg-container">
+		 <img id="frontpage-bg"src="assets/img/memes_bg.png">
+	</div>
 	<div id="content" class="container-fluid">
-		<div class="row justify-content-center">
+		<div class="row vertical-center">
 			<div class="jumbotron col-md-8">
 				<h1>Hello Memes!</h1>
 				<p>Do you have the best meme ever on mind, but don't have anyone to share it with? Then you've come to the right place!
@@ -66,9 +66,7 @@
 				</p>
 			</div>
 			<div id="sign-form" class="col-md-8">
-				<h1>Sign Up
-					<a class="cancel-btn">x</a>
-				</h1>
+				<h1>Sign Up<a class="cancel-btn pull-right">x</a></h1>
 				<form action="register.php" method="POST">
 					<div class="form-group">
 						<label for="username">Username:</label>
@@ -84,20 +82,18 @@
 					</div>
 					<div class="checkbox">
 						<label>
-							<input type="checkbox" required> I agree to become an obedient servant of Memegram Ltd, and to give up all my property and other resources that the employees
-							of Memegram Ltd may find useful.
+							<input type="checkbox" required> I agree to become an obedient servant of Memegram Ltd, and to give up all my property and other resources that the
+							employees of Memegram Ltd may find useful.
 						</label>
 					</div>
 					<button type="submit" class="orange-btn btn btn-warning">Submit</button>
 				</form>
 			</div>
 		</div>
-	</div>
-	<!-- container-->
+	</div> <!-- container-->
 
 	<script src="assets/lib/jquery.min.js"></script>
-	<script src="assets/lib/bootstrap4/js/bootstrap.bundle.min.js"></script>
-	<script src="assets/lib/font-awesome/js/fontawesome-all.min.js "></script>
+	<script src="assets/lib/bootstrap.min.js"></script>
 	<script src="assets/js/master.js"></script>
 
 </body>

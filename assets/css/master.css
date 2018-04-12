@@ -1,374 +1,109 @@
 html {
-	min-height: 100%;
-	margin: 0;
+   min-height: 100%;
+   margin: 0;
 }
 
 body {
-	height: auto;
-	margin: 0;
-	font-family: "Cabin", sans-serif;
-	/*background: #fdbb2d; /* fallback for old browsers */
-	background: -webkit-linear-gradient(to bottom, #f58928, #351b5d);
-	background: linear-gradient(to bottom, #f58928, #351b5d);
-	background-repeat: no-repeat;
-}
-
-a {
-	text-decoration: none;
-	color: #ddd !important;
-}
-
-body.hasHover a:hover {
-	text-decoration: none;
-	color: #fff !important;
+   height: 100%;
+   margin: 0;
+   padding-top: 70px; /* nav height + 20px*/
+   font-family: "Cabin", sans-serif;
+   /*background: #fdbb2d; /* fallback for old browsers */
+   background: -webkit-linear-gradient(to bottom, #f58928, #351b5d);
+   background: linear-gradient(to bottom, #f58928, #351b5d);
+   /*background: url("../img/memes_bg.png") no-repeat; 
+   background-position: center;
+   background-size: cover;*/
 }
 
 h1,
-h2,
-h3 {
-	font-family: "Luckiest Guy", sans-serif;
-}
-
-.select-disable {
-	/*Disable highlight selection on imgs */
-	-webkit-user-select: none;
-	-khtml-user-select: none;
-	-moz-user-select: none;
-	-o-user-select: none;
-	user-select: none;
+.navbar-brand {
+   font-family: "Luckiest Guy", sans-serif;
 }
 
 .jumbotron {
-	text-align: center;
-	background: rgba(255, 255, 255, .75);
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-	font-size: 20px;
-}
-
-.jumbotron a {
-	color: #000 !important;
+   text-align: center;
+   background: rgba(255, 255, 255, .75);
+   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 .vertical-center {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: center;
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   justify-content: center;
+}
+
+
+.navbar-right a:hover {
+   background: #f58928
+}
+
+a:hover {
+   cursor: default;
 }
 
 .orange-btn {
-	background: #f58928;
+   background: #f58928;
 }
 
-.meme-container {
-	overflow: hidden;
-	background: #222;
-	color: #ddd;
-	border: 5px solid rgba(0, 0, 0, 0) !important;
-	/*height: 100%;*/
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-	transition: ease-in-out 200ms;
-	cursor: pointer;
+.meme-row {
+	padding-top: 30px;
 }
-
-body.hasHover .meme-container:hover {
-	transform: scale(1.02);
-}
-
-.meme-poster {
-	height: 10px;
-}
-
-meme-poster:first-child {
-	font-size:90%;
-}
-
-.meme-poster img {
-	height: 30px;
-	width: 30px;
-}
-
-.meme-img>img {
-	padding: 30px 0 10px 0;
-	width: 100%;
-	height: 100%;
-	transition: 200ms;
-}
-
-.meme-panel {
-	height: 40px;
-}
-
-.meme-author {
-	z-index: 0;
-}
-
-.meme-panel-item {
-	color: #fff;
-	width: 50px;
-	height: 30px;
-	/* hover area */
-	cursor: pointer;
-}
-
-.filter-item {
-	width: 25px;
-}
-
-.notification {
-	display: none;
-	position: fixed;
-	top: 50px;
-	height: 70px;
-	width: 100%;
-	background: #222;
-	color: #fff;
-	z-index: 99;
-	justify-content: center;
-	align-items: center;
-}
-
-.cancel-btn {
-	color: #BBB;
-	font-size: 75%;
-	line-height: 1.5;
-}
-
-body.hasHover .cancel-btn:hover {
-	color: #fff;
-	text-decoration: none;
-}
-
-.comment-author {
-	font-weight: 700;
-	font-size: 0.8em;
-	color:#aaa;
-	padding: 5px 5px 0 5px;
-}
-
-.comments {
-	display: none;
-	/* background: #eee; */
-	color: #eee;
-	max-width: 100%;
-	font-size: 1em;
-}
-
-.comment {
-	padding: 5px;
-	background: none !important;
-	border: none !important;
-}
-
-.comment-container {
-	border-bottom: 0.5px solid #000;
-}
-
-.comment-container:last-child {
-	border-bottom: none;
-}
-
-textarea {
-	display: block !important;
-	outline: none !important;
-	color: #eee; 
-	border: none !important; 
-	background:none !important;
-	max-width: 65%;
-	height: auto;
-	resize: none;
-	float: left;
-}
-.comment>form>button {
-	float: right;
-}
-
-/* .delete-comment {
-	float: right;
+/* .meme-container {
 } */
 
-.delete-comment>.item-solid,
-.meme-panel-item .item-solid {
-	font-size: 0;
-}
-
-#filter .item-solid {
-	display: none;
-}
-
-div .item-regular {
-	transition: 300ms;
-}
-
-
-
-/* body.hasHover #filter>li:hover .item-solid */
-/* body.hasHover .comment-container>.row:hover
-.delete-comment>.item-solid, */
-body.hasHover .delete-comment:hover .item-solid,
-body.hasHover .meme-panel-item:hover .item-solid {
-	transition: 300ms;
-	font-size: 1em;
-}
-
-/* body.hasHover #filter>li:hover .item-regular, */
-/* body.hasHover .comment-container>.row:hover 
-.delete-comment>.item-regular, */
-body.hasHover .delete-comment:hover .item-regular,
-body.hasHover .meme-panel-item:hover .item-regular {
-	font-size: 0;
-}
-
-#pop-up {
-	display: none;
-	position: fixed;
-	align-items: center;
-	justify-content: center;
-	cursor: pointer;
-	z-index:1050;
-	top:0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background: rgba(0,0,0,.8);
-}
-
-#pop-up>img{
-	display: block;
-	height: 95%;
-	max-width: 95%;
-	color: #ddd;
-	border: 5px solid #222;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-}
-
-#filter-container {
-	background: #222;
-	position: fixed;
-	min-height: 100%;
-	top: 50px;
-	left: 0;
-	width: 15%;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-	overflow: hidden;
-}
-
-#filter {
-	font-size: 90%;
-	color: #ddd;
-	list-style-type: none;
-	padding-left: 0;
-	padding-top: 20px;
-	height: 50px;
-}
-
-body.hasHover #filter>li:hover,
-body.hasHover #filter>li:hover a {
-	color: #fff !important;
+.meme-img {
+	max-height: 100%;
+	width: 100%; 
 }
 
 #sign-form {
-	top: 50px;
-	/* nav height + 20px*/
-	position: absolute;
-	display: none;
-	border-radius: 0 0 15px 15px;
-	padding: 35px 60px 50px 60px;
-	color: #fff;
-	background: #222;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+   top: 50px; /* nav height + 20px*/
+   position: absolute;
+   display: none; 
+   border-radius: 0 0 15px 15px;
+   padding: 35px 60px 50px 60px;
+   color: #fff;
+   background: #222;
+   box-shadow: 0 0 10px rgba(0,0,0,0.3);
 }
 
-#sign-form>h1>a {
-	float: right;
-	cursor: pointer;
+.cancel-btn {
+   color: #BBB;
+   font-size: 75%;
+   line-height: 1.5;
+}
+.cancel-btn:hover {
+   color: #fff;
+   text-decoration: none;
 }
 
-#add-meme-form {
-	margin-top: -1%;
-	background: #222;
-	color: #fff;
-	padding: 20px;
-	width: 350px;
-	border: none;
+#login-form {
+   width: 250px;
+   padding: 20px;
+   background: #222;
+   color: #fff;
 }
 
-#add-meme-form .pic-input {
-	display: none;
-}
-
-
-#login {
-	background: #222;
-	color: #fff;
-	padding: 20px;
-	width: 250px;
-	border: none;
-}
-
-#add-meme-form button,
-#login button {
-	margin-top: 10px;
-}
-
-#logo {
-	font-family: "Luckiest Guy", sans-serif;
+#login-form li {
+   margin: 10px 0;
 }
 
 #navbar {
-	box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-	background: #222 !important;
+   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+	margin-bottom: 0;
 }
 
 #bg-container {
-	position: fixed;
+	position: absolute;
 	top: 0;
 	display: flex;
 	justify-content: center;
 	height: 100%;
-	max-width: 100%;
-	z-index: -1;
-	overflow: hidden;
-}
-
-#bg-gradient {
-	position: fixed;
-	top: 0;
-	height: 100vh; /* 100% of viewport height */
 	width: 100%;
 	overflow: hidden;
-	z-index: -1;
-}
-
-#profilePic>div {
-	height: 200px;
-	width: 200px;
-	border-radius: 50%;
-	border: 2px solid pink;
-	overflow: hidden;
-}
-
-#content {
-	padding-top: 110px;
-	max-width: 100%;
-}
-
-#container {
-	padding-top: 70px;
-}
-
-#feed-content {
-	padding-top: 70px; 
-	position: absolute;
-	width: 85%;
-	/* filter-container width 15%*/
-	right: 0;
-}
-
-/* Comment Form */
-#comment-form {
-	 border:none !important; 
-	 background:none !important;
+	z-index:0;
 }
 
 
@@ -376,141 +111,19 @@ body.hasHover #filter>li:hover a {
 /*– Small devices –*/
 /*–––––––––––––––––*/
 @media (max-width: 768px) {
-	a:hover {
-		text-decoration: none;
-	}
-	body {
-		padding-top: 50px;
-	}
-	#add-meme-form,
-	#sign-form {
-		top: 50px;
-		padding: 30px;
-		left: 0;
-		z-index:1;
-		border-radius: 0;
-		height: auto;
-		box-shadow: none;
-	}
-	.comment-author{
-		padding: 10px 10px 0 10px;
-	}
-	.comment {
-		padding: 5px 10px 10px 10px;
-	}
-	.jumbotron {
-		border-radius: 0 !important;
-	}
-	.meme-container {
-		/* border-radius: 0 !important; */
-		box-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
-		/* margin: 1px 0 1px 0 !important; */
-		margin: 5px !important;
-	}
-	/* body.hasHover .meme-container:hover {
-		border-width: 5px !important;
-		transform: none;
-	}
-	body.hasHover .cancel-btn:hover {
-		transform: none;
-	} */
-	#meme-row-left,
-	#meme-row-center,
-	#meme-row-right {
-		padding-left: 0;
-		padding-right: 0;
-	}
-	#navbar {
-		text-align: center;
-	}
-	#add-meme-form,
-	#login {
-		width: 90%;
-		margin: 0 auto;
-	}
-	/* #login>form {
-	} */
-	#content {
-		padding-top:0;
-	}
+   
+   body {
+      padding-top: 50px;
+   }
 
-	#feed-content {
-		padding-top: 50px;
-		overflow: hidden;
-		width: 100%;
-	}
-	#filter-container {
-		position: fixed;
-		min-height: 0;
-		z-index: 2;
-		top: 50px;
-		left: 0;
-		width: 100vw;
-		box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
-	}
-	#filter {
-		padding: 10px 10px 0 10px;
-		margin: 0;
-		width: 100%;
-		display: flex;
-		align-items: center;
-		justify-content: space-around;
-		font-size: 0.8em;
-	}
-	.filter-item{
-		font-size: 1.2em;
-	}
-	#filter>strong {
-		display: none;
-	}
-	#filter>li {
-		height: 25px;
-		display: inline-flex !important;
-	}
-	#pop-up{
-		top:0;
-	}
-	#pop-up>img {
-		min-width: 100%;
-		height: auto;
-	}
+   #sign-form {
+      top: 0;
+      padding-top: 100px;
+      border-radius: 0;
+      height: 100%;
+   }
+
+   .jumbotron {
+      border-radius: 0 !important;
 }
-
-/* Small devices landscape */
-@media only screen
-and (max-width: 768px) 
-and (orientation: landscape) {
-	.notification {
-		top: 0;
-	}
-	#filter-container {
-		top: 0;
-	}
-	#filter {
-		padding: 10px 10px 10px 10px;
-		}
-	#pop-up>img {
-		max-height: 100%;
-	}
-	.feed-nav {
-		display: none;
-	}
-	.meme-container {
-		/* force center */
-		margin: 0 auto !important;
-		max-width: 70%;
-	}
-	.meme-img {
-		height: 100vh;
-	}
-}
-
-/* Extra small devices */
-@media (max-width: 576px) {
-	.filter-item ~ a {
-		font-size: 0;
-	}
-	.filter-item {
-		font-size: 1.3em;
-	}
 }
