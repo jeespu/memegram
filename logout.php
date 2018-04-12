@@ -1,12 +1,23 @@
+<?php
+session_start();
+
+// remove all session variables
+session_unset();
+
+// destroy the session
+session_destroy();
+?>
+
 <!DOCTYPE html>
 <html>
 
 <head>
 	<!-- Favicon -->
-	<link rel="icon" type="image/png" href="assets/img/fav_unicorn.png">
+	<link rel="icon" type="image/png" href="assets/img/fav_unicorn.png"/>
 	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Meme Site Project</title>
+	<!-- <link rel="stylesheet" href="assets/lib/bootstrap.min.css"> -->
 	<link rel="stylesheet" href="assets/lib/bootstrap4/css/bootstrap.min.css">
 	<link rel="stylesheet" href="assets/css/master.css">
 	<link href="https://fonts.googleapis.com/css?family=Cabin:400,600,700|Luckiest+Guy" rel="stylesheet">
@@ -15,10 +26,10 @@
 
 <body>
 
-	<div id="bg-container">
-		<img id="frontpage-bg" src="assets/img/memes_bg.png">
+	<div class="notification">
+		Logged out! See you again soon!
 	</div>
-
+	
 	<!-- Navbar -->
 	<nav id="navbar" class="navbar fixed-top navbar-expand-md navbar-dark bg-dark">
 		<a id="logo" class="navbar-brand" href="#">Memegram</a>
@@ -33,7 +44,8 @@
 				</li>
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" href="#login" id="login-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
-					   aria-expanded="false">Login
+					   aria-expanded="false">
+						Login
 					</a>
 					<div id="login" class="nav-item dropdown-menu dropdown-menu-right" aria-labelledby="login-dropdown">
 						<form action="login.php" method="POST">
@@ -55,8 +67,11 @@
 		</div>
 	</nav>
 
+	<div id="bg-container">
+		<img id="frontpage-bg" src="assets/img/memes_bg.png">
+	</div>
 	<div id="content" class="container-fluid">
-		<div class="row justify-content-center">
+		<div class="row vertical-center">
 			<div class="jumbotron col-md-8">
 				<h1>Hello Memes!</h1>
 				<p>Do you have the best meme ever on mind, but don't have anyone to share it with? Then you've come to the right place!
@@ -96,6 +111,7 @@
 	<!-- container-->
 
 	<script src="assets/lib/jquery.min.js"></script>
+	<!-- <script src="assets/lib/bootstrap.min.js "></script>-->
 	<script src="assets/lib/bootstrap4/js/bootstrap.bundle.min.js"></script>
 	<script src="assets/lib/font-awesome/js/fontawesome-all.min.js "></script>
 	<script src="assets/js/master.js"></script>
