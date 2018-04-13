@@ -94,23 +94,6 @@ $(document).ready(function () {
 			$(this).parent().submit();
 		}
 	});
-	// Delete Comment
-	$(".delete-comment").on("click", function (ev) {
-		$(this).parents(".comment-container").slideUp("fast");
-		var id = $(this).parents(".comment-container").attr("id");
-		// console.log(ev)
-		$.ajax({
-			type: "POST",
-			url: "deleteComment.php",
-			data: {
-				deleteID: id
-			},
-			success: function () {
-				console.log("comment deleted");
-			}
-		});
-	});
-
 	// Add Comment
 	$(".comment-send").on("click", function addComment() {
 		var sendBtn = $(this);
@@ -130,6 +113,7 @@ $(document).ready(function () {
 			success: function () {
 				console.log("comment sent");
 				sendBtn.closest(".comment-container").before(commentHTML);
+				$(".delete-comment").on("click");
 			}
 		});
 		//console.log("btn", sendBtn);
@@ -140,6 +124,23 @@ $(document).ready(function () {
 		//console.log("newComment", newComment);
 		//console.log("loggedUser", loggedUser);
 	});
+	// Delete Comment
+	$(".delete-comment").on("click", function (ev) {
+		$(this).parents(".comment-container").slideUp("fast");
+		var id = $(this).parents(".comment-container").attr("id");
+		// console.log(ev)
+		$.ajax({
+			type: "POST",
+			url: "deleteComment.php",
+			data: {
+				deleteID: id
+			},
+			success: function () {
+				console.log("comment deleted");
+			}
+		});
+	});
+
 
 	// Rate meme
 	$(".meme-panel-item.star").on("click", function () {
@@ -171,7 +172,7 @@ $(document).ready(function () {
 					postID: id,
 				},
 				success: function () {
-					console.log("Rated: " + currentRating + " stars to post with ID " + id);
+					console.log("Rated: " + currentRating + " stars to post ID " + id);
 				}
 			});
 		},

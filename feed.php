@@ -4,6 +4,12 @@ session_start();
 //Check if session is on
 if ($_SESSION['logged_user'] == "") {
 	header("Location: index.html");
+	echo '<script>$(".notification").text("Invalid username or password.")</script>';
+} else {
+	// Check if logged user has mod rights
+	$modUser = mysqli_query($conn, sprintf("SELECT modRights FROM user WHERE username = '%s'",$_SESSION['logged_user']));
+   $modRow = mysqli_fetch_array($modUser, MYSQLI_ASSOC);
+	$hasModRights = $modRow['modRights'];
 }
 ?>
 
@@ -230,12 +236,6 @@ if ($_SESSION['logged_user'] == "") {
 					$userrow = mysqli_fetch_array($user, MYSQLI_ASSOC);
 					$username = $userrow['username'];
 					$userID = $userrow['userID'];
-
-					// Check if logged user has mod rights
-					$modUser = mysqli_query($conn, sprintf("SELECT modRights FROM user WHERE username = '%s'",$_SESSION['logged_user']));
-               $modRow = mysqli_fetch_array($modUser, MYSQLI_ASSOC);
-					$hasModRights = $modRow['modRights'];
-					
 					// Add Comment String
 					if (($userID == $_SESSION['userID']) || ($hasModRights == 1) ) {
 						$poststring .= sprintf('
