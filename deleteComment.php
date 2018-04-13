@@ -10,8 +10,6 @@
    $sql = "DELETE FROM `memesite`.`comment` WHERE `commentID`='$deletedcommentID' and whoCommented='$user'";
 
    if ($conn->query($sql) === TRUE) {
-      // Redirect to Feed -page
-      // header("Location: feed.php");
       exit();
    } else {
       // If error occurs
@@ -19,12 +17,10 @@
       die();
    }
 
-   if ($deletedcommentID == "") {
-      $sql = "DELETE FROM `memesite`.`comment` WHERE `content`='$deletedcomment' and whoCommented='$user'";
+   if ($deletedcommentID == '') {
+      $sql = "DELETE FROM comment WHERE content='$deletedcomment' and whoCommented='$user'";
 
    if ($conn->query($sql) === TRUE) {
-      // Redirect to Feed -page
-      // header("Location: feed.php");
       exit();
    } else {
       // If error occurs
