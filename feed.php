@@ -251,12 +251,12 @@ if ($_SESSION['logged_user'] == "") {
 						</div>', $commentID, $username, $content);
 					} else {
 						$poststring .= sprintf('
-						<div class="comment-container">
+						<div id="%s" class="comment-container">
 							<div class="comment-author"><strong>%s</strong></div>
 							<div class="row mx-auto">
 								<div class="comment col-10">%s</div>
 							</div>
-						</div>', $username, $content);
+						</div>', $commentID, $username, $content);
 					}
 
 				}

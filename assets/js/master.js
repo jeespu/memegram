@@ -113,7 +113,7 @@ $(document).ready(function () {
 			success: function () {
 				console.log("comment sent");
 				sendBtn.closest(".comment-container").before(commentHTML);
-				$(".delete-comment").on("click");
+				$(".delete-comment").on("click", deleteComment);
 			}
 		});
 		//console.log("btn", sendBtn);
@@ -125,22 +125,7 @@ $(document).ready(function () {
 		//console.log("loggedUser", loggedUser);
 	});
 	// Delete Comment
-	$(".delete-comment").on("click", function (ev) {
-		$(this).parents(".comment-container").slideUp("fast");
-		var id = $(this).parents(".comment-container").attr("id");
-		// console.log(ev)
-		$.ajax({
-			type: "POST",
-			url: "deleteComment.php",
-			data: {
-				deleteID: id
-			},
-			success: function () {
-				console.log("comment deleted");
-			}
-		});
-	});
-
+	$(".delete-comment").on("click", deleteComment)
 
 	// Rate meme
 	$(".meme-panel-item.star").on("click", function () {
@@ -209,6 +194,24 @@ $(document).ready(function () {
 
 });
 
+function deleteComment() {
+	$(this).parents(".comment-container").slideUp("fast");
+	
+	var comment = $(this).prev().text();
+	var id = $(this).parents(".comment-container").attr("id");
+	// console.log(ev)
+	$.ajax({
+		type: "POST",
+		url: "deleteComment.php",
+		data: {
+			deleteID: id,
+			deletedComment: comment,
+		},
+		success: function () {
+			console.log("comment deleted");
+		}
+	})
+};
 
 function watchForHover() {
 	var hasHoverClass = false;

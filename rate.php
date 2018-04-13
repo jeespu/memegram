@@ -21,14 +21,15 @@
    }
 
    // Update avgRating
-   // $sql2 = "UPDATE avgRating SET AVG(select rating from rating where whichPost='$postID')";
-   // if ($conn->query($sql2) === TRUE) {
-   //       exit();
-   // } else {
-   //       // If error occurs
-   //       echo "Error: " . $sql . "<br>" . $conn->error;
-   //       die();
-   // }
+   $updateSql = "UPDATE post SET avgRating = (SELECT avg(rating) FROM rating where whichPost = '$postID') where postID='$postID'";
+   if ($conn->query($updateSql) === TRUE) {
+         exit();
+   } else {
+         // If error occurs
+         echo "Error: " . $sql . "<br>" . $conn->error;
+         die();
+   }
+
    // Close connection
    $conn->close();
 ?>
