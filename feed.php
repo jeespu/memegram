@@ -21,6 +21,41 @@ if ($_SESSION['logged_user'] == "") {
 	<link rel="stylesheet" href="assets/css/master.css"/>
 	<link href="https://fonts.googleapis.com/css?family=Cabin:400,600,700|Luckiest+Guy" rel="stylesheet"/>
 	<link rel="stylesheet" href="assets/lib/font-awesome/css/fa-svg-with-js.css"/>
+	<!-- Start-rating-svg-css -->
+	<style>
+			.jq-stars {
+		display: inline-block;
+		}
+		.jq-rating-label {
+		font-size: 22px;
+		display: inline-block;
+		position: relative;
+		vertical-align: top;
+		font-family: helvetica, arial, verdana;
+		}
+		.jq-star {
+		width: 100px;
+		height: 100px;
+		display: inline-block;
+		cursor: pointer;
+		}
+		.jq-star-svg {
+		padding-left: 3px;
+		width: 100%;
+		height: 100% ;
+		}
+		.jq-star:hover .fs-star-svg path {
+		}
+		.jq-star-svg path {
+		/* stroke: #000; */
+		stroke-linejoin: round;
+		}
+		/* un-used */
+		.jq-shadow {
+		-webkit-filter: drop-shadow( -2px -2px 2px #888 );
+		filter: drop-shadow( -2px -2px 2px #888 );
+		}
+	</style>
 </head>
 
 <body>
@@ -121,7 +156,7 @@ if ($_SESSION['logged_user'] == "") {
 		$posts = array();
 		$post = mysqli_query($conn, "SELECT * FROM post");
 
-      while ($row = mysqli_fetch_array($post, MYSQL_ASSOC)) {
+      while ($row = mysqli_fetch_array($post, MYSQLI_ASSOC)) {
 			$poststring = " ";
          $postID = $row['postID'];
          $pictureSource = $row['pictureSource'];
@@ -131,7 +166,7 @@ if ($_SESSION['logged_user'] == "") {
 
 			// Get username and pic with posterID
 			$user = mysqli_query($conn, "SELECT username, profilePic FROM user WHERE userID='$posterID'");
-			$userrow = mysqli_fetch_array($user, MYSQL_ASSOC);
+			$userrow = mysqli_fetch_array($user, MYSQLI_ASSOC);
 			$profilePic = $userrow['profilePic'];
 			$username = $userrow['username'];
 
@@ -140,7 +175,7 @@ if ($_SESSION['logged_user'] == "") {
 			<div id="%s" class="meme-container rounded my-2">
 				<div class="row meme-poster py-2">
 					<div class="col-12 pr-auto align-items-center">
-						<img class="rounded-circle ml-2" src="%s" alt="profile-pic"><span class="ml-2">%s</span><span style="visibility:hidden;" class="ml-auto">%s</span>
+						<img class="img-fluid rounded-circle ml-2" src="%s" alt="profile-pic"><span class="ml-2">%s</span><span style="visibility:hidden;" class="ml-auto">%s</span>
 					</div>
 				</div>
 				<div class="row meme-img select-disable ">
@@ -165,18 +200,18 @@ if ($_SESSION['logged_user'] == "") {
 							<i class="fas fa-share-square item-solid"></i>
 						</div>
 					</div>
-					<div class="col-3 d-flex justify-content-end">
+					<div class="col-3 d-flex justify-content-end star-rate" data-toggle="tooltip" data-placement="top">
 						<div class="meme-panel-item d-flex justify-content-center align-items-center">
 							<i class="far fa-star item-regular"></i>
 							<i class="fas fa-star item-solid"></i>
 						</div>
 					</div>
 				</div> <!--meme-panel -->
-				<div class="comments rounded" id="1">', $postID, $profilePic, $username, $addDate, $pictureSource);
+				<div class="comments rounded">', $postID, $profilePic, $username, $addDate, $pictureSource);
 
 			// Add Comments
 			$comment = mysqli_query($conn, "SELECT * FROM comment");
-			while ($commentRow = mysqli_fetch_array($comment, MYSQL_ASSOC)) {
+			while ($commentRow = mysqli_fetch_array($comment, MYSQLI_ASSOC)) {
 				$commentID = $commentRow['commentID'];
 				$content = $commentRow['content'];
 				$whoCommented = $commentRow['whoCommented'];
@@ -185,11 +220,11 @@ if ($_SESSION['logged_user'] == "") {
 				if($whichPost == $postID) {
 					// Get username
 					$user = mysqli_query($conn, "SELECT username, userID FROM user WHERE userID='$whoCommented'");
-					$userrow = mysqli_fetch_array($user, MYSQL_ASSOC);
+					$userrow = mysqli_fetch_array($user, MYSQLI_ASSOC);
 					$username = $userrow['username'];
 					$userID = $userrow['userID'];
                     $modUser = mysqli_query($conn, sprintf("SELECT modRights FROM user WHERE username = '%s'",$_SESSION['logged_user']));
-                    $modRow = mysqli_fetch_array($modUser, MYSQL_ASSOC);
+                    $modRow = mysqli_fetch_array($modUser, MYSQLI_ASSOC);
                     $hasModRights = $modRow['modRights'];
 					// Add Comment String
 					if (($userID == $_SESSION['userID']) || ($hasModRights == 1)) {
@@ -219,7 +254,7 @@ if ($_SESSION['logged_user'] == "") {
 
 			// Add New Comment String
 			$poststring .= sprintf('
-			<div class="comment-container">
+			<div class="comment-container new-comment">
 				<div class="comment-author"><strong>New comment:</strong>
 				</div>
 				<div class="comment">
@@ -236,6 +271,8 @@ if ($_SESSION['logged_user'] == "") {
 			$posts[] = $poststring;
 		};
 		?>
+
+		<!-- <div class="stars-tooltip">PERKELE</div> -->
 
 		<div id="meme-row-left" class="col-md-4">
 			<?php
@@ -333,9 +370,13 @@ if ($_SESSION['logged_user'] == "") {
 
 </div><!-- feed-content -->
 
+<!-- rating/tooltip template -->
+<div class="tooltip" role="tooltip" style="display:none";><div class="tooltip-arrow"></div><div class="tooltip-inner rating"></div></div>
+
 <script src="assets/lib/jquery.min.js"></script>
 <script src="assets/lib/autosize/autosize.min.js"></script>
-<!--<script src="assets/lib/bootstrap.min.js"></script>-->
+<script src="assets/lib/star-rating-svg/src/jquery.star-rating-svg.js"></script>
+<script src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></script>
 <script src="assets/lib/bootstrap4/js/bootstrap.bundle.min.js "></script>
 <script src="assets/lib/font-awesome/js/fontawesome-all.min.js "></script>
 <script src="assets/js/master.js"></script>

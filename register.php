@@ -15,7 +15,7 @@ VALUES ('$user', '$email', '$pass')";
 if ($conn->query($sql) === TRUE) {
     // Get userID
     $result = mysqli_query($conn, "SELECT userID FROM user WHERE username = '$user'");
-    $row = mysqli_fetch_array($result, MYSQL_ASSOC);
+    $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
     $userID = $row['userID'];
     // Redirect to Feed -page
     header("Location: feed.php", true,  301);

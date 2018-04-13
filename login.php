@@ -5,7 +5,7 @@ require "connect.php";
 $user = $_POST['loginusername'];
 
 $result = mysqli_query($conn, "SELECT password, userID, modRights FROM user WHERE username = '$user'");
-$row = mysqli_fetch_array($result, MYSQL_ASSOC);
+$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 $dbpass = $row['password'];
 $userID = $row['userID'];
 

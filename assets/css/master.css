@@ -164,7 +164,7 @@ body.hasHover .cancel-btn:hover {
 	border-bottom: 0.5px solid #000;
 }
 
-.comment-container:last-child {
+.new-comment {
 	border-bottom: none;
 }
 

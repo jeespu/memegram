@@ -123,7 +123,7 @@ $(document).ready(function () {
 
 	// Add Comment
 	$(".comment-send").on("click", function addComment() {
-		// var id = $(this).parents(".meme-container").attr("id");
+		//var loggedUser = <?php echo json_encode($_SESSION['logged_user']) ?>
 		var sendBtn = $(this);
 		var commentsDiv = $(this).closest(".comments");
 		var id = $(this).parents(".meme-container").attr("id"); // Get comment ID
@@ -131,7 +131,7 @@ $(document).ready(function () {
 		// Build string
 		var commentHTML = '<comment-container"><div class="comment-author"><strong>' + loggedUser + '</strong></div><div class="row mx-auto"><div class="comment col-10">' + commentInput + '</div></div></div>';
 		// String for new comment div
-		var newComment = '<div class="comment-container"><div class="comment-author"><strong>New comment:</strong></div><div class="comment"><div><input type="hidden"><textarea placeholder="comment" maxlength="255"></textarea><button class="orange-btn btn btn-warning btn-sm comment-send">Send</button></div></div></div></div></div>';
+		var newComment = '<div class="comment-container new-comment"><div class="comment-author"><strong>New comment:</strong></div><div class="comment"><div><input type="hidden"><textarea placeholder="comment" maxlength="255"></textarea><button class="orange-btn btn btn-warning btn-sm comment-send">Send</button></div></div></div></div></div>';
 		$.ajax({
 			type: "POST",
 			url: "comment.php",
@@ -141,18 +141,31 @@ $(document).ready(function () {
 			},
 			success: function () {
 				console.log("comment sent");
-				sendBtn.closest(".comment-container").html(commentHTML);
-				commentsDiv.append(newComment);
-				$(".comment-send").on("click", addComment);
+				sendBtn.closest(".comment-container").before(commentHTML);
+				//commentsDiv.append(newComment);
+				//$(".comment-send").one("click", addComment);
 				// error: console.log("some error happened?"), mysterious error?
 			}	
 		});	
 		console.log("btn", sendBtn);
 		console.log("commentsDiv", commentsDiv);
 		console.log("id" + id);
-		console.log("commentInput", commentInput);
+		//console.log("commentInput", commentInput);
 		console.log("commentHtml", commentHTML);
-		console.log("newComment", newComment);
+		//console.log("newComment", newComment);
+		//console.log("loggedUser", loggedUser);
+	});
+
+	// Rate meme
+	$(".rating").starRating({
+		initialRating: 4,
+		strokeColor: '#894A00',
+		strokeWidth: 10,
+		starSize: 25
+	});
+	$('[data-toggle="tooltip"]').tooltip({
+		html: true,
+		title: $(".tooltip").html(),
 	});
 
 	// Show and hide filters on scroll on small devices

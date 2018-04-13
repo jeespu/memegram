@@ -53,7 +53,7 @@ if ($_SESSION['logged_user'] == "") {
 			<div id="wrapper" class="col-md-8 col-sm-9 col-lg-7 col-xl-6">
 					<div id="profileHeader" class="justify-content-center">
 						<?php $result = mysqli_query($conn, sprintf("SELECT profilePic FROM user WHERE userID = '%s'",$_SESSION['userID']));
-						$row = mysqli_fetch_array($result, MYSQL_ASSOC);
+						$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 						$profilePic = $row['profilePic'];?>
 						<div id="profilePic" style="background: url('<?php echo $profilePic;?>'); background-size:cover;background-position: center; margin: 50px auto;">
 						</div>
@@ -65,13 +65,13 @@ if ($_SESSION['logged_user'] == "") {
 							</div>
 						<h1 id="userName" class="display-4 text-center" style="margin: 20px auto 0 auto;">
 							<?php $result = mysqli_query($conn, sprintf("SELECT username FROM user WHERE userID = '%s'",$_SESSION['userID']));
-							$row = mysqli_fetch_array($result, MYSQL_ASSOC);
+							$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 							$currentUserName = $row['username'];
 							echo $currentUserName?>
 						</h1>
 						<p id="fullName" class="lead text-center" style="margin: 0 auto;">
 							<?php $result = mysqli_query($conn, sprintf("SELECT * FROM user WHERE userID = '%s'",$_SESSION['userID']));
-							while ($row = mysqli_fetch_array($result, MYSQL_ASSOC)) {
+							while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 								$currentFirstName = $row['firstName'];
 								$currentLastName = $row['lastName'];
 							}
@@ -79,7 +79,7 @@ if ($_SESSION['logged_user'] == "") {
 						</p>
 						<p id="email" class="text-center" style="margin: 0 auto;">
 							<?php $result = mysqli_query($conn, sprintf("SELECT email FROM user WHERE userID = '%s'",$_SESSION['userID']));
-							$row = mysqli_fetch_array($result, MYSQL_ASSOC);
+							$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 							$currentEmail = $row['email'];
 							echo $currentEmail?>
 						</p>
