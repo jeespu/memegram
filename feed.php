@@ -179,7 +179,7 @@ if ($_SESSION['logged_user'] == "") {
 			<div id="%s" class="meme-container rounded my-2">
 				<div class="row meme-poster py-2">
 					<div class="col-12 pr-auto align-items-center">
-						<img class="img-fluid rounded-circle ml-2" src="%s" alt="profile-pic"><span class="ml-2">%s</span><span style="visibility:hidden;" class="ml-auto">%s</span>
+						<img class="img-fluid rounded-circle ml-2" src="%s"><span class="ml-2">%s</span><span style="visibility:hidden;" class="ml-auto">%s</span>
 					</div>
 				</div>
 				<div class="row meme-img select-disable ">
@@ -225,15 +225,19 @@ if ($_SESSION['logged_user'] == "") {
 				$whichPost = $commentRow['whichPost'];
 
 				if($whichPost == $postID) {
-					// Get username
-					$user = mysqli_query($conn, "SELECT username, userID, modRights FROM user WHERE userID='$whoCommented'");
+					// Get username for comment
+					$user = mysqli_query($conn, "SELECT username, userID FROM user WHERE userID='$whoCommented'");
 					$userrow = mysqli_fetch_array($user, MYSQLI_ASSOC);
 					$username = $userrow['username'];
 					$userID = $userrow['userID'];
-					$hasModRights = $userrow['modRights'];
 
+					// Check if logged user has mod rights
+					$modUser = mysqli_query($conn, sprintf("SELECT modRights FROM user WHERE username = '%s'",$_SESSION['logged_user']));
+               $modRow = mysqli_fetch_array($modUser, MYSQLI_ASSOC);
+					$hasModRights = $modRow['modRights'];
+					
 					// Add Comment String
-					if (($userID == $_SESSION['userID']) || ($hasModRights === 1) ) {
+					if (($userID == $_SESSION['userID']) || ($hasModRights == 1) ) {
 						$poststring .= sprintf('
 						<div id="%s" class="comment-container">
 							<div class="comment-author"><strong>%s</strong></div>
