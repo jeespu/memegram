@@ -13,7 +13,6 @@
    WHERE userID='$user' and postID='$postID'";
 
    if ($conn->query($sql) === TRUE) {
-       exit();
    } else {
       // If error occurs
       echo "Error: " . $sql . "<br>" . $conn->error;
