@@ -4,7 +4,7 @@
    require "connect.php";
 
    $deletedcommentID = $_POST['deleteID'];
-   $deletedcomment = $_POST['deletedComment'];
+   $deletedcomment = input($_POST['deletedComment']);
    $user = $_SESSION['userID'];
 
    $sql = "DELETE FROM `memesite`.`comment` WHERE `commentID`='$deletedcommentID' and whoCommented='$user'";
@@ -20,7 +20,7 @@
    }
 
    if ($deletedcommentID == "") {
-      $sql = "DELETE FROM `memesite`.`comment` WHERE `comment`='$deletedcomment' and whoCommented='$user'";
+      $sql = "DELETE FROM `memesite`.`comment` WHERE `content`='$deletedcomment' and whoCommented='$user'";
 
    if ($conn->query($sql) === TRUE) {
       // Redirect to Feed -page
@@ -35,4 +35,11 @@
 
    // Close connection
    $conn->close();
+
+   function input($data) {
+      $data = trim($data);
+      $data = stripslashes($data);
+      $data = htmlspecialchars($data);
+   return $data;
+}
 ?>
