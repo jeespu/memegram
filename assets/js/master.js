@@ -4,7 +4,7 @@ $(document).ready(function () {
 	$(".sign-up, .cancel-btn").on("click", function () {
 		$("#sign-form").slideToggle("fast");
 		if (window.innerWidth <= 768) {
-			$(".nav-item>.sign-up").on("click", function () { 
+			$(".nav-item>.sign-up").on("click", function () {
 				$("#sign-form:hidden").slideDown("fast");
 				$(".navbar-toggler").click();
 			})
@@ -22,7 +22,7 @@ $(document).ready(function () {
 		// }
 	});
 	$(".fake-pic-button").on("click", function (ev) {
-		ev.preventDefault();	
+		ev.preventDefault();
 		$(".pic-input").click();
 	})
 
@@ -30,7 +30,7 @@ $(document).ready(function () {
 		$("#sign-form:visible").slideUp("fast");
 	});
 	// Prevent login form hiding
-	$("#login, #login>form>input").click(function (ev) { 
+	$("#login, #login>form>input").click(function (ev) {
 		ev.stopPropagation();
 	})
 
@@ -62,7 +62,7 @@ $(document).ready(function () {
 			if (!$(this).prev("div").children(".item-solid").hasClass("clicked"))
 				$(this).prev("div").children().toggle();
 		},
-		click: function () { 
+		click: function () {
 			$("#filter>li>a").prev("div").children(".item-solid").hide();
 			$("#filter>li>a").prev("div").children(".item-regular").show();
 			$("#filter>li>a").prev("div").children(".item-solid").removeClass("clicked");
@@ -73,23 +73,11 @@ $(document).ready(function () {
 
 	// Meme-panel Effects
 	// $(".meme-panel-item").on({
-	// 	mouseover: function () {
-	// 		if (!$(this).children(".item-solid").hasClass("clicked"))
-	// 			$(this).children().toggle();
+	// 	mouseover: function () { 
+	// 		$(this).children(".item-regular").toggleClass("far").toggleClass("fas");
 	// 	},
 	// 	mouseleave: function () {
-	// 		if (!$(this).children(".item-solid").hasClass("clicked"))
-	// 			$(this).children().toggle();
-	// 	},
-	// 	click: function () {
-	// 		if (!$(this).children(".item-solid").hasClass("clicked")) {
-	// 			$(".meme-panel-item").children(".item-solid").hide().removeClass("clicked");
-	// 			$(".meme-panel-item").children(".item-regular").show();
-	// 			$(this).children(".item-solid").addClass("clicked");
-	// 			$(this).children().toggle();
-	// 		} else {
-	// 			$(this).children(".item-solid").removeClass("clicked");
-	// 		}
+	// 		$(this).children(".item-regular").removeClass("fas").addClass("far");
 	// 	}
 	// });
 
@@ -114,7 +102,9 @@ $(document).ready(function () {
 		$.ajax({
 			type: "POST",
 			url: "deleteComment.php",
-			data: { deleteID: id },
+			data: {
+				deleteID: id
+			},
 			success: function () {
 				console.log("comment deleted");
 			}
@@ -123,15 +113,13 @@ $(document).ready(function () {
 
 	// Add Comment
 	$(".comment-send").on("click", function addComment() {
-		//var loggedUser = <?php echo json_encode($_SESSION['logged_user']) ?>
 		var sendBtn = $(this);
 		var commentsDiv = $(this).closest(".comments");
 		var id = $(this).parents(".meme-container").attr("id"); // Get comment ID
 		var commentInput = $(this).prev().val(); // Get input
+		$(this).prev().val("");// Clear textarea
 		// Build string
-		var commentHTML = '<comment-container"><div class="comment-author"><strong>' + loggedUser + '</strong></div><div class="row mx-auto"><div class="comment col-10">' + commentInput + '</div></div></div>';
-		// String for new comment div
-		var newComment = '<div class="comment-container new-comment"><div class="comment-author"><strong>New comment:</strong></div><div class="comment"><div><input type="hidden"><textarea placeholder="comment" maxlength="255"></textarea><button class="orange-btn btn btn-warning btn-sm comment-send">Send</button></div></div></div></div></div>';
+		var commentHTML = '<comment-container"><div class="comment-author"><strong>' + loggedUser + '</strong></div><div class="row mx-auto"><div class="comment col-10">' + commentInput + '</div><div class="delete-comment d-flex align-items-center justify-content-center col-2"> <i class="far fa-trash-alt item-regular"></i> <i class="fas fa-trash-alt item-solid"></i></div></div></div>';
 		$.ajax({
 			type: "POST",
 			url: "comment.php",
@@ -142,30 +130,51 @@ $(document).ready(function () {
 			success: function () {
 				console.log("comment sent");
 				sendBtn.closest(".comment-container").before(commentHTML);
-				//commentsDiv.append(newComment);
-				//$(".comment-send").one("click", addComment);
-				// error: console.log("some error happened?"), mysterious error?
-			}	
-		});	
-		console.log("btn", sendBtn);
-		console.log("commentsDiv", commentsDiv);
-		console.log("id" + id);
+			}
+		});
+		//console.log("btn", sendBtn);
+		//console.log("commentsDiv", commentsDiv);
+		//console.log("id" + id);
 		//console.log("commentInput", commentInput);
-		console.log("commentHtml", commentHTML);
+		//console.log("commentHtml", commentHTML);
 		//console.log("newComment", newComment);
 		//console.log("loggedUser", loggedUser);
 	});
 
 	// Rate meme
-	$(".rating").starRating({
-		initialRating: 4,
-		strokeColor: '#894A00',
-		strokeWidth: 10,
-		starSize: 25
+	$(".meme-panel-item.star").on("click", function () {
+		$(this).parents(".meme-panel").prev().slideToggle("fast");
 	});
-	$('[data-toggle="tooltip"]').tooltip({
-		html: true,
-		title: $(".tooltip").html(),
+	$(".ratings").starRating({
+		initialRating: 3,
+		useFullStars: true,
+		strokeColor: '#351b5d',
+		strokeWidth: 0,
+		starSize: 25,
+		starShape: 'rounded',
+		hoverColor: '#f58928',
+		activeColor: '#f58928',
+		ratedColor: '#f07408',
+		// useGradient: true,
+		starGradient: {
+			start: '#f58928',
+			end: '#f07408'
+		},
+		callback: function (currentRating, $el) {
+			var id = $el.parents(".meme-container").attr("id");
+			//console.log($el);
+			$.ajax({
+				type: "POST",
+				url: "rate.php",
+				data: {
+					rating: currentRating,
+					postID: id,
+				},
+				success: function () {
+					console.log("Rated: " + currentRating + " stars to post with ID " + id);
+				}
+			});
+		},
 	});
 
 	// Show and hide filters on scroll on small devices
@@ -176,7 +185,7 @@ $(document).ready(function () {
 			var pos = $(this).scrollTop();
 			if (pos > scrollPos) { //Scrolling Down
 				$.data(this, "scrollTimer", setTimeout(function () {
-				$("#filter").slideUp("fast");
+					$("#filter").slideUp("fast");
 				}, 50));
 			} else { //Scrolling Up
 				$("#filter").slideDown("fast");
@@ -187,8 +196,6 @@ $(document).ready(function () {
 
 	// Disable hover effects on touch
 	watchForHover();
-
-
 
 	// Infinity scroll
 	// $(window).on("scroll", function () {
@@ -201,22 +208,6 @@ $(document).ready(function () {
 
 });
 
-// function ajaxComment(comment, id, btn, commentsDiv, newComment) {
-// 	$.ajax({
-// 		type: "POST",
-// 		url: "comment.php",
-// 		data: {
-// 			comment: comment,
-// 			postID: id,
-// 		},
-// 		success: function () {
-// 			console.log("comment sent");
-// 			btn.closest(".comment-container").html(comment);
-// 			commentsDiv.append(newComment);
-// 		},
-// 		// error: console.log("some error happened?"), mysterious error?
-// 	});
-// }
 
 function watchForHover() {
 	var hasHoverClass = false;
@@ -249,31 +240,3 @@ function watchForHover() {
 
 	enableHover();
 }
-
-// function toggleSolid(ev) {
-// 	var regular = $(this).prev("div").children(".item-regular");
-// 	var solid = $(this).prev("div").children(".item-solid");
-// 	if (regular.is(":visible") || solid.is(":hidden")) {
-// 		regular.hide();
-// 		solid.fadeIn("fast");
-// 	} else {
-// 		regular.fadeIn("fast");
-// 		solid.hide();
-// 	}
-// };
-
-// function ajaxComment() { 
-// 	$.ajax({
-// 		type: "POST",
-// 		url: "comment.php",
-// 		data: {
-// 			comment: commentInput,
-// 			postID: id,
-// 		},
-// 		success: function () {
-// 			console.log("comment sent");
-// 			sendBtn.closest(".comment-container").html(commentHTML);
-// 			// error: console.log("some error happened?"), mysterious error?
-// 		}
-// 	});
-// }

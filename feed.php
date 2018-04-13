@@ -23,7 +23,10 @@ if ($_SESSION['logged_user'] == "") {
 	<link rel="stylesheet" href="assets/lib/font-awesome/css/fa-svg-with-js.css"/>
 	<!-- Start-rating-svg-css -->
 	<style>
-			.jq-stars {
+		.ratings-row {
+			display:none;
+		}
+		.jq-stars {
 		display: inline-block;
 		}
 		.jq-rating-label {
@@ -31,18 +34,19 @@ if ($_SESSION['logged_user'] == "") {
 		display: inline-block;
 		position: relative;
 		vertical-align: top;
-		font-family: helvetica, arial, verdana;
+		font-family: "Cabin", sans-serif;		
 		}
 		.jq-star {
 		width: 100px;
 		height: 100px;
+		margin: 0 5px 0 5px;
 		display: inline-block;
 		cursor: pointer;
 		}
 		.jq-star-svg {
 		padding-left: 3px;
 		width: 100%;
-		height: 100% ;
+		height: 100%;
 		}
 		.jq-star:hover .fs-star-svg path {
 		}
@@ -51,10 +55,10 @@ if ($_SESSION['logged_user'] == "") {
 		stroke-linejoin: round;
 		}
 		/* un-used */
-		.jq-shadow {
+		/* .jq-shadow {
 		-webkit-filter: drop-shadow( -2px -2px 2px #888 );
 		filter: drop-shadow( -2px -2px 2px #888 );
-		}
+		} */
 	</style>
 </head>
 
@@ -181,6 +185,9 @@ if ($_SESSION['logged_user'] == "") {
 				<div class="row meme-img select-disable ">
 					<img class="mx-auto d-block" src="%s">
 				</div>
+				<div class="row ratings-row text-center">
+					<div class="ratings"></div>
+				</div>
 				<div class="row meme-panel d-flex align-items-center">
 					<div class="col-3 d-flex justify-content-start">
 						<div class="meme-panel-item d-flex justify-content-center align-items-center">
@@ -200,8 +207,8 @@ if ($_SESSION['logged_user'] == "") {
 							<i class="fas fa-share-square item-solid"></i>
 						</div>
 					</div>
-					<div class="col-3 d-flex justify-content-end star-rate" data-toggle="tooltip" data-placement="top">
-						<div class="meme-panel-item d-flex justify-content-center align-items-center">
+					<div class="col-3 d-flex justify-content-end">
+						<div class="meme-panel-item star d-flex justify-content-center align-items-center">
 							<i class="far fa-star item-regular"></i>
 							<i class="fas fa-star item-solid"></i>
 						</div>
@@ -271,8 +278,6 @@ if ($_SESSION['logged_user'] == "") {
 			$posts[] = $poststring;
 		};
 		?>
-
-		<!-- <div class="stars-tooltip">PERKELE</div> -->
 
 		<div id="meme-row-left" class="col-md-4">
 			<?php
@@ -370,13 +375,13 @@ if ($_SESSION['logged_user'] == "") {
 
 </div><!-- feed-content -->
 
-<!-- rating/tooltip template -->
-<div class="tooltip" role="tooltip" style="display:none";><div class="tooltip-arrow"></div><div class="tooltip-inner rating"></div></div>
+<!-- rating/tooltip -->
+<!-- <div class="rating"></div> -->
 
 <script src="assets/lib/jquery.min.js"></script>
 <script src="assets/lib/autosize/autosize.min.js"></script>
 <script src="assets/lib/star-rating-svg/src/jquery.star-rating-svg.js"></script>
-<script src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></script>
+<!-- <script src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></script> -->
 <script src="assets/lib/bootstrap4/js/bootstrap.bundle.min.js "></script>
 <script src="assets/lib/font-awesome/js/fontawesome-all.min.js "></script>
 <script src="assets/js/master.js"></script>
