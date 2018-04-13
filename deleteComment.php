@@ -20,7 +20,7 @@
    }
 
    if ($deletedcommentID == "") {
-      $sql = "DELETE FROM `memesite`.`comment` WHERE `commentID`='$deletedcommentID' and whoCommented='$user'";
+      $sql = "DELETE FROM `memesite`.`comment` WHERE `comment`='$deletedcomment' and whoCommented='$user'";
 
    if ($conn->query($sql) === TRUE) {
       // Redirect to Feed -page
