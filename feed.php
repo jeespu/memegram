@@ -231,9 +231,9 @@ if ($_SESSION['logged_user'] == "") {
 					$username = $userrow['username'];
 					$userID = $userrow['userID'];
 					$hasModRights = $userrow['modRights'];
-					
+
 					// Add Comment String
-					if (($userID == $_SESSION['userID'])) {
+					if (($userID == $_SESSION['userID']) || ($hasModRights === 1) ) {
 						$poststring .= sprintf('
 						<div id="%s" class="comment-container">
 							<div class="comment-author"><strong>%s</strong></div>
