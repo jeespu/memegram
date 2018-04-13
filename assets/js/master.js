@@ -119,7 +119,7 @@ $(document).ready(function () {
 		var commentInput = $(this).prev().val(); // Get input
 		$(this).prev().val("");// Clear textarea
 		// Build string
-		var commentHTML = '<comment-container"><div class="comment-author"><strong>' + loggedUser + '</strong></div><div class="row mx-auto"><div class="comment col-10">' + commentInput + '</div><div class="delete-comment d-flex align-items-center justify-content-center col-2"> <i class="far fa-trash-alt item-regular"></i> <i class="fas fa-trash-alt item-solid"></i></div></div></div>';
+		var commentHTML = '<div class="comment-container"><div class="comment-author"><strong>' + loggedUser + '</strong></div><div class="row mx-auto"><div class="comment col-10">' + commentInput + '</div><div class="delete-comment d-flex align-items-center justify-content-center col-2"><i class="far fa-trash-alt item-regular"></i><i class="fas fa-trash-alt item-solid"></i></div></div></div>';
 		$.ajax({
 			type: "POST",
 			url: "comment.php",

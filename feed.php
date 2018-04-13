@@ -226,15 +226,14 @@ if ($_SESSION['logged_user'] == "") {
 
 				if($whichPost == $postID) {
 					// Get username
-					$user = mysqli_query($conn, "SELECT username, userID FROM user WHERE userID='$whoCommented'");
+					$user = mysqli_query($conn, "SELECT username, userID, modRights FROM user WHERE userID='$whoCommented'");
 					$userrow = mysqli_fetch_array($user, MYSQLI_ASSOC);
 					$username = $userrow['username'];
 					$userID = $userrow['userID'];
-                    $modUser = mysqli_query($conn, sprintf("SELECT modRights FROM user WHERE username = '%s'",$_SESSION['logged_user']));
-                    $modRow = mysqli_fetch_array($modUser, MYSQLI_ASSOC);
-                    $hasModRights = $modRow['modRights'];
+					$hasModRights = $userrow['modRights'];
+					
 					// Add Comment String
-					if (($userID == $_SESSION['userID']) || ($hasModRights == 1)) {
+					if (($userID == $_SESSION['userID'])) {
 						$poststring .= sprintf('
 						<div id="%s" class="comment-container">
 							<div class="comment-author"><strong>%s</strong></div>
