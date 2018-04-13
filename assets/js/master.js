@@ -26,14 +26,12 @@ $(document).ready(function () {
 		$(".pic-input").click();
 	})
 
-
 	$("#login-dropdown").on("click", function (ev) {
 		$("#sign-form:visible").slideUp("fast");
 	});
-
 	// Prevent login form hiding
-	$(".nav-item-dropdown, #login, #login>form>input").click(function (ev) { 
-		event.stopPropagation();
+	$("#login, #login>form>input").click(function (ev) { 
+		ev.stopPropagation();
 	})
 
 	$(".meme-img").on("click", function () {
@@ -103,25 +101,81 @@ $(document).ready(function () {
 	autosize($('textarea'));
 	// Submit on enter
 	$('textarea').on("keydown", function (ev) {
+		//ev.preventDefault();
 		if (ev.which === 13) {
 			$(this).parent().submit();
 		}
 	});
-	// Delete/hide Comment
+	// Delete Comment
 	$(".delete-comment").on("click", function (ev) {
 		$(this).parents(".comment-container").slideUp("fast");
 		var id = $(this).parents(".comment-container").attr("id");
 		// console.log(ev)
-		// $.post(deleteComment.php, { commentID: id });
 		$.ajax({
 			type: "POST",
 			url: "deleteComment.php",
 			data: { deleteID: id },
-			success: function (data) {
-				console.log(data);
+			success: function () {
+				console.log("comment deleted");
 			}
 		});
 	});
+
+	// Add Comment
+	$(".comment-send").on("click", function addComment() {
+		// var id = $(this).parents(".meme-container").attr("id");
+		var sendBtn = $(this);
+		var commentsDiv = $(this).closest(".comments");
+		var id = $(this).parents(".meme-container").attr("id"); // Get comment ID
+		var commentInput = $(this).prev().val(); // Get input
+		// Build string
+		var commentHTML = '<comment-container"><div class="comment-author"><strong>' + loggedUser + '</strong></div><div class="row mx-auto"><div class="comment col-10">' + commentInput + '</div></div></div>';
+		// String for new comment div
+		var newComment = '<div class="comment-container"><div class="comment-author"><strong>New comment:</strong></div><div class="comment"><div><input type="hidden"><textarea placeholder="comment" maxlength="255"></textarea><button class="orange-btn btn btn-warning btn-sm comment-send">Send</button></div></div></div></div></div>';
+		$.ajax({
+			type: "POST",
+			url: "comment.php",
+			data: {
+				comment: commentInput,
+				postID: id,
+			},
+			success: function () {
+				console.log("comment sent");
+				sendBtn.closest(".comment-container").html(commentHTML);
+				commentsDiv.append(newComment);
+				$(".comment-send").on("click", addComment);
+				// error: console.log("some error happened?"), mysterious error?
+			}	
+		});	
+		console.log("btn", sendBtn);
+		console.log("commentsDiv", commentsDiv);
+		console.log("id" + id);
+		console.log("commentInput", commentInput);
+		console.log("commentHtml", commentHTML);
+		console.log("newComment", newComment);
+	});
+
+	// Show and hide filters on scroll on small devices
+	var scrollPos = 0;
+	$(window).on("scroll", function () {
+		if ($(window).width() <= 768) {
+			// clearTimeout($.data(this, "scrollTimer"));
+			var pos = $(this).scrollTop();
+			if (pos > scrollPos) { //Scrolling Down
+				$.data(this, "scrollTimer", setTimeout(function () {
+				$("#filter").slideUp("fast");
+				}, 50));
+			} else { //Scrolling Up
+				$("#filter").slideDown("fast");
+			}
+			scrollPos = $(this).scrollTop();
+		}
+	});
+
+	// Disable hover effects on touch
+	watchForHover();
+
+
 
 	// Infinity scroll
 	// $(window).on("scroll", function () {
@@ -132,28 +186,24 @@ $(document).ready(function () {
 	// 	}
 	// });
 
-	// Show and hide filters on scroll on small devices
-	var scrollPos = 0;
-	$(window).on("scroll", function () {
-		if ($(window).width() <= 768) {
-			// clearTimeout($.data(this, "scrollTimer"));
-			var pos = $(this).scrollTop();
-			if (pos - 50 > scrollPos) { //Scrolling Down
-				// $.data(this, "scrollTimer", setTimeout(function () {
-				$("#filter").slideUp("fast");
-				// }, 100));
-			} else { //Scrolling Up
-				$("#filter").slideDown("fast");
-			}
-			scrollPos = $(this).scrollTop();
-		}
-	});
-
-	// Disable hover effects on touch
-	watchForHover();
 });
 
-
+// function ajaxComment(comment, id, btn, commentsDiv, newComment) {
+// 	$.ajax({
+// 		type: "POST",
+// 		url: "comment.php",
+// 		data: {
+// 			comment: comment,
+// 			postID: id,
+// 		},
+// 		success: function () {
+// 			console.log("comment sent");
+// 			btn.closest(".comment-container").html(comment);
+// 			commentsDiv.append(newComment);
+// 		},
+// 		// error: console.log("some error happened?"), mysterious error?
+// 	});
+// }
 
 function watchForHover() {
 	var hasHoverClass = false;
@@ -198,3 +248,19 @@ function watchForHover() {
 // 		solid.hide();
 // 	}
 // };
+
+// function ajaxComment() { 
+// 	$.ajax({
+// 		type: "POST",
+// 		url: "comment.php",
+// 		data: {
+// 			comment: commentInput,
+// 			postID: id,
+// 		},
+// 		success: function () {
+// 			console.log("comment sent");
+// 			sendBtn.closest(".comment-container").html(commentHTML);
+// 			// error: console.log("some error happened?"), mysterious error?
+// 		}
+// 	});
+// }

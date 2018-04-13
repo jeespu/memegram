@@ -171,15 +171,15 @@ body.hasHover .cancel-btn:hover {
 textarea {
 	display: block !important;
 	outline: none !important;
-	color: #eee; 
-	border: none !important; 
+	color: #eee;
+	border: none !important;
 	background:none !important;
 	max-width: 65%;
 	height: auto;
 	resize: none;
 	float: left;
 }
-.comment>form>button {
+.comment button {
 	float: right;
 }
 
@@ -212,7 +212,7 @@ body.hasHover .meme-panel-item:hover .item-solid {
 }
 
 /* body.hasHover #filter>li:hover .item-regular, */
-/* body.hasHover .comment-container>.row:hover 
+/* body.hasHover .comment-container>.row:hover
 .delete-comment>.item-regular, */
 body.hasHover .delete-comment:hover .item-regular,
 body.hasHover .meme-panel-item:hover .item-regular {
@@ -329,6 +329,9 @@ body.hasHover #filter>li:hover a {
 	max-width: 100%;
 	z-index: -1;
 	overflow: hidden;
+	will-change: transform;
+	transform-origin: top center;
+	transform: scale(1.1);
 }
 
 #bg-gradient {
@@ -340,7 +343,7 @@ body.hasHover #filter>li:hover a {
 	z-index: -1;
 }
 
-#profilePic>div {
+#profilePic{
 	height: 200px;
 	width: 200px;
 	border-radius: 50%;
@@ -358,7 +361,7 @@ body.hasHover #filter>li:hover a {
 }
 
 #feed-content {
-	padding-top: 70px; 
+	padding-top: 70px;
 	position: absolute;
 	width: 85%;
 	/* filter-container width 15%*/
@@ -366,10 +369,10 @@ body.hasHover #filter>li:hover a {
 }
 
 /* Comment Form */
-#comment-form {
-	 border:none !important; 
+/* #comment-form {
+	 border:none !important;
 	 background:none !important;
-}
+} */
 
 
 /*–––––––––––––––––*/
@@ -478,7 +481,7 @@ body.hasHover #filter>li:hover a {
 
 /* Small devices landscape */
 @media only screen
-and (max-width: 768px) 
+and (max-width: 768px)
 and (orientation: landscape) {
 	.notification {
 		top: 0;

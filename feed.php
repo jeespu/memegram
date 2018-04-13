@@ -48,11 +48,11 @@ if ($_SESSION['logged_user'] == "") {
 			<!-- Add meme Dropdown -->
 			<div id="add-meme-form" class="nav-item dropdown-menu dropdown-menu-right" aria-labelledby="add-meme-dropdown">
 				<form action="linkMeme.php" method="POST">
-					<li>
+					<!-- <li>
 						<label for="pic">Upload Picture:</label>
 						<button class="col-12 orange-btn btn btn-warning fake-pic-button" type="button">Choose File</button>
 						<input class="pic-input" type="file" name="pic" accept="image/*">
-					</li>
+					</li> -->
 					<li>
 						<label for="picurl">Picture URL:</label>
 						<input name="picurl" type="text" class="form-control" placeholder="Link a meme url here">
@@ -122,7 +122,7 @@ if ($_SESSION['logged_user'] == "") {
 		$post = mysqli_query($conn, "SELECT * FROM post");
 
       while ($row = mysqli_fetch_array($post, MYSQL_ASSOC)) {
-			$poststring = " "; 
+			$poststring = " ";
          $postID = $row['postID'];
          $pictureSource = $row['pictureSource'];
          $addDate = $row['addDate'];
@@ -134,7 +134,7 @@ if ($_SESSION['logged_user'] == "") {
 			$userrow = mysqli_fetch_array($user, MYSQL_ASSOC);
 			$profilePic = $userrow['profilePic'];
 			$username = $userrow['username'];
-			
+
 			// Add Post
 			$poststring .= sprintf('
 			<div id="%s" class="meme-container rounded my-2">
@@ -172,7 +172,7 @@ if ($_SESSION['logged_user'] == "") {
 						</div>
 					</div>
 				</div> <!--meme-panel -->
-				<div class="comments rounded">', $postID, $profilePic, $username, $addDate, $pictureSource);
+				<div class="comments rounded" id="1">', $postID, $profilePic, $username, $addDate, $pictureSource);
 
 			// Add Comments
 			$comment = mysqli_query($conn, "SELECT * FROM comment");
@@ -220,13 +220,14 @@ if ($_SESSION['logged_user'] == "") {
 			// Add New Comment String
 			$poststring .= sprintf('
 			<div class="comment-container">
-				<div class="comment-author"><strong>New comment:</strong></div>
+				<div class="comment-author"><strong>New comment:</strong>
+				</div>
 				<div class="comment">
-					<form id="comment-form" action="comment.php" method="POST">
-						<input type="hidden" name="postID" value="%s">
-						<textarea name="comment" placeholder="comment" maxlength="255"></textarea> 
-						<button type="submit" class="orange-btn btn btn-warning btn-sm">Send</button>
-					</form>
+					<div>
+						<input type="hidden" >
+						<textarea placeholder="comment" maxlength="255"></textarea>
+						<button class="orange-btn btn btn-warning btn-sm comment-send">Send</button>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -237,7 +238,7 @@ if ($_SESSION['logged_user'] == "") {
 		?>
 
 		<div id="meme-row-left" class="col-md-4">
-			<?php 
+			<?php
 				$leftRow = count($posts) / 3; /* one third  to left side */
 				$centerRow = $leftRow * 2;	/* one third  to center side */
 				$rightRow = count($posts); /* one third  to right side */
@@ -245,6 +246,9 @@ if ($_SESSION['logged_user'] == "") {
 					echo $posts[$i];
 				}
 			?>
+			<script>
+				var loggedUser = <?php echo json_encode($_SESSION['logged_user']) ?>
+			</script>
 
 	 <!-- <div class="meme-container rounded my-2">
 				<div class="row meme-poster py-2">
@@ -298,18 +302,18 @@ if ($_SESSION['logged_user'] == "") {
 						<div class="comment">
 							<form id="comment-form" action="comment.php" method="POST">
 								<input type="hidden" name="postID" value="%s">
-								<textarea name="comment" placeholder="comment" maxlength="255"></textarea> 
+								<textarea name="comment" placeholder="comment" maxlength="255"></textarea>
 								<button type="submit" class="orange-btn btn btn-warning btn-sm">Send</button>
 							</form>
 						</div>
 					</div>
-				</div> 
+				</div>
 			</div> -->
 
 		</div><!-- meme-row-left -->
 
 		<div id="meme-row-center" class="col-md-4">
-			<?php 
+			<?php
 					for ($i = $leftRow; $i < $centerRow; $i++) {
 						echo $posts[$i];
 					}
@@ -318,7 +322,7 @@ if ($_SESSION['logged_user'] == "") {
 
 
 		<div id="meme-row-right" class="col-md-4">
-			<?php 
+			<?php
 				for ($i = $centerRow; $i < $rightRow; $i++) {
 					echo $posts[$i];
 				}

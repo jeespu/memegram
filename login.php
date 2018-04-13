@@ -31,6 +31,5 @@ if(password_verify($_POST['loginpassword'], $dbpass)) {
     // </script>');
     die();
 }
-
 $conn->close();
 ?>

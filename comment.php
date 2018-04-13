@@ -12,7 +12,7 @@
 
    if ($conn->query($sql) === TRUE) {
       // Redirect to Feed -page
-      header("Location: feed.php");
+      //header("Location: feed.php");
       exit();
    } else {
       // If error occurs
