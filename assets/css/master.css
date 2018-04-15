@@ -329,9 +329,6 @@ body.hasHover #filter>li:hover a {
 	max-width: 100%;
 	z-index: -1;
 	overflow: hidden;
-	will-change: transform;
-	transform-origin: top center;
-	transform: scale(1.1);
 }
 
 #bg-gradient {
@@ -341,6 +338,9 @@ body.hasHover #filter>li:hover a {
 	width: 100%;
 	overflow: hidden;
 	z-index: -1;
+	will-change: transform;
+	transform-origin: top center;
+	transform: scale(1.1);
 }
 
 #profilePic{
