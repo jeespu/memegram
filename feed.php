@@ -89,7 +89,7 @@ if ($_SESSION['logged_user'] == "") {
 <div class="collapse navbar-collapse" id="navbarSupportedContent">
 	<ul class="navbar-nav ml-auto">
 		<li class="nav-item">
-			<a class="nav-link dropdown-toggle add-meme" href="#add-meme-form" id="add-meme-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Add Meme<i class="fas fa-plus ml-2"></i></a>
+			<a class="nav-link add-meme" href="#add-meme-form" id="add-meme-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Add Meme<i class="fas fa-plus ml-2"></i></a>
 			<!-- Add meme Dropdown -->
 			<div id="add-meme-form" class="nav-item dropdown-menu dropdown-menu-right" aria-labelledby="add-meme-dropdown">
 				<form action="linkMeme.php" method="POST">
@@ -196,25 +196,25 @@ if ($_SESSION['logged_user'] == "") {
 				</div>
 				<div class="row meme-panel d-flex align-items-center">
 					<div class="col-3 d-flex justify-content-start">
-						<div class="meme-panel-item d-flex justify-content-center align-items-center">
+						<div class="meme-panel-item d-flex justify-content-center align-items-center" data-toggle="tooltip" data-placement="bottom" title="Save">
 							<i class="far fa-bookmark item-regular"></i>
 							<i class="fas fa-bookmark item-solid"></i>
 						</div>
 					</div>
 					<div class="col-3 d-flex justify-content-center">
-						<div class="meme-panel-item d-flex justify-content-center align-items-center">
+						<div class="meme-panel-item d-flex justify-content-center align-items-center" data-toggle="tooltip" data-placement="bottom" title="Comment">
 							<i class="far fa-comment item-regular"></i>
 							<i class="fas fa-comment item-solid"></i>
 						</div>
 					</div>
 					<div class="col-3 d-flex justify-content-center">
-						<div class="meme-panel-item d-flex justify-content-center align-items-center">
+						<div class="meme-panel-item d-flex justify-content-center align-items-center" data-toggle="tooltip" data-placement="bottom" title="Share">
 							<i class="far fa-share-square item-regular"></i>
 							<i class="fas fa-share-square item-solid"></i>
 						</div>
 					</div>
 					<div class="col-3 d-flex justify-content-end">
-						<div class="meme-panel-item star d-flex justify-content-center align-items-center">
+						<div class="meme-panel-item star d-flex justify-content-center align-items-center" data-toggle="tooltip" data-placement="bottom" title="Rate">
 							<i class="far fa-star item-regular"></i>
 							<i class="fas fa-star item-solid"></i>
 						</div>
@@ -258,7 +258,6 @@ if ($_SESSION['logged_user'] == "") {
 							</div>
 						</div>', $commentID, $username, $content);
 					}
-
 				}
 			}
 
@@ -384,7 +383,7 @@ if ($_SESSION['logged_user'] == "") {
 <script src="assets/lib/jquery.min.js"></script>
 <script src="assets/lib/autosize/autosize.min.js"></script>
 <script src="assets/lib/star-rating-svg/src/jquery.star-rating-svg.js"></script>
-<!-- <script src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></script> -->
+<script src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></script>
 <script src="assets/lib/bootstrap4/js/bootstrap.bundle.min.js "></script>
 <script src="assets/lib/font-awesome/js/fontawesome-all.min.js "></script>
 <script src="assets/js/master.js"></script>

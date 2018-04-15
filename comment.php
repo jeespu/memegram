@@ -11,10 +11,6 @@
    $sql = "INSERT INTO comment (content, whoCommented, whichPost) VALUES ('$comment', '$user', ' $postID')";
 
    if ($conn->query($sql) === TRUE) {
-      // Redirect to Feed -page
-      //header("Location: feed.php");
-//       echo printf('<script>loggedUser = "%s"
-// </script>', json_encode($_SESSION['logged_user']));
       exit();
    } else {
       // If error occurs

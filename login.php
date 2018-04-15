@@ -18,7 +18,7 @@ if(password_verify($_POST['loginpassword'], $dbpass)) {
     $_SESSION['userID'] = $userID;
     exit();
 } else {
-    header("Location: index.html");
+    header("Location: index.php");
     // echo('
     // <script>
     //     $(document).ready(function () {

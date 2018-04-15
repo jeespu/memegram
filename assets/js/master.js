@@ -1,4 +1,26 @@
 $(document).ready(function () {
+	
+	// TEST REFRESH
+	// window.setInterval(function () {
+	// 	$('.comments').load("feed.php .comment-container", function () { 
+	// 		$('[id]').each(function () {
+	// 			var ids = $('[id="' + this.id + '"]');
+	// 			// remove duplicate IDs
+	// 			if (ids.length > 1 && ids[0] == this) {
+	// 				$('#' + this.id).remove();
+	// 			}
+	// 		});
+	// 		console.log("deleted duplicate ids");
+	// 	})
+	// }, 5000)
+
+	// Enable tooltips
+	$(function () {
+		$('[data-toggle="tooltip"]').tooltip({
+			// Add some delay
+			delay: { "show": 1000, "hide": 100 }
+		})
+	})
 
 	// Sign Up Form
 	$(".sign-up, .cancel-btn").on("click", function () {
@@ -167,14 +189,16 @@ $(document).ready(function () {
 	var scrollPos = 0;
 	$(window).on("scroll", function () {
 		if ($(window).width() <= 768) {
-			// clearTimeout($.data(this, "scrollTimer"));
+			clearTimeout($.data(this, "scrollTimer"));
 			var pos = $(this).scrollTop();
 			if (pos > scrollPos) { //Scrolling Down
 				$.data(this, "scrollTimer", setTimeout(function () {
 					$("#filter").slideUp("fast");
-				}, 50));
+				}, 20));
 			} else { //Scrolling Up
-				$("#filter").slideDown("fast");
+				$.data(this, "scrollTimer", setTimeout(function () {
+					$("#filter").slideDown("fast");
+				}, 50));
 			}
 			scrollPos = $(this).scrollTop();
 		}
@@ -196,7 +220,7 @@ $(document).ready(function () {
 
 function deleteComment() {
 	$(this).parents(".comment-container").slideUp("fast");
-	
+
 	var comment = $(this).prev().text();
 	var id = $(this).parents(".comment-container").attr("id");
 	// console.log(ev)

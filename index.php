@@ -97,6 +97,7 @@
 
 	<script src="assets/lib/jquery.min.js"></script>
 	<script src="assets/lib/autosize/autosize.min.js"></script>
+	<script src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></script>
 	<script src="assets/lib/bootstrap4/js/bootstrap.bundle.min.js"></script>
 	<script src="assets/lib/font-awesome/js/fontawesome-all.min.js "></script>
 	<script src="assets/js/master.js"></script>
