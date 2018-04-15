@@ -19,16 +19,10 @@ if(password_verify($_POST['loginpassword'], $dbpass)) {
     exit();
 } else {
     header("Location: index.php");
-    // echo('
-    // <script>
-    //     $(document).ready(function () {
-    //         $(".notification").text("Invalid username or password.")
-    //         $(".notification").slideDown("fast").css("display", "flex");
-    //         window.setTimeout(function () {
-    //             $(".notification").slideUp("fast");
-    //         }, 2000);
-    //     }
-    // </script>');
+    echo '
+    <script>
+        $("body").append("<div class=\'notification\'>Invalid username or password.</div>)
+    </script>';
     die();
 }
 $conn->close();
