@@ -15,12 +15,14 @@ $(document).ready(function () {
 	// }, 5000)
 
 	// Enable tooltips
-	$(function () {
-		$('[data-toggle="tooltip"]').tooltip({
-			// Add some delay
-			delay: { "show": 1000, "hide": 100 }
+	if (window.innerWidth > 768) {
+		$(function () {
+			$('[data-toggle="tooltip"]').tooltip({
+				// Add some delay
+				delay: { "show": 1000, "hide": 100 }
+			})
 		})
-	})
+	}
 
 	// Sign Up Form
 	$(".sign-up, .cancel-btn").on("click", function () {
