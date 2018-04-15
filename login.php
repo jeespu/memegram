@@ -21,15 +21,15 @@ if(password_verify($_POST['loginpassword'], $dbpass)) {
     exit();
 } else {
     header("Location: index.php");
-    $notification = '<script>
+    $notification = sprintf('<script>
     var notification = "<div class=\'notification\'>Invalid username or password.</div>"; 
-    notification.appendTo("body");
+    $(notification).appendTo("body");
     $(".notification").slideDown("fast").css("display", "flex");
 	window.setTimeout(function () {
 		$(".notification").slideUp("fast");
 	}, 2000);
-    </script>';
-    echo $notification;
+    </script>');
+    print $notification;
     die();
 }
 $conn->close();
