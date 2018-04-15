@@ -3,13 +3,7 @@ require 'connect.php';
 session_start();
 //Check if session is on
 if ($_SESSION['logged_user'] == "") {
-	header("Location: index.html");
-	echo '<script>$(".notification").text("Invalid username or password.")</script>';
-} else {
-	// Check if logged user has mod rights
-	$modUser = mysqli_query($conn, sprintf("SELECT modRights FROM user WHERE username = '%s'",$_SESSION['logged_user']));
-   $modRow = mysqli_fetch_array($modUser, MYSQLI_ASSOC);
-	$hasModRights = $modRow['modRights'];
+	header("Location: index.php");
 }
 ?>
 
@@ -237,7 +231,7 @@ if ($_SESSION['logged_user'] == "") {
 					$username = $userrow['username'];
 					$userID = $userrow['userID'];
 					// Add Comment String
-					if (($userID == $_SESSION['userID']) || ($hasModRights == 1) ) {
+					if ($userID == $_SESSION['userID'] || $_SESSION['modRights'] == 1  ) {
 						$poststring .= sprintf('
 						<div id="%s" class="comment-container">
 							<div class="comment-author"><strong>%s</strong></div>
@@ -387,6 +381,39 @@ if ($_SESSION['logged_user'] == "") {
 <script src="assets/lib/bootstrap4/js/bootstrap.bundle.min.js "></script>
 <script src="assets/lib/font-awesome/js/fontawesome-all.min.js "></script>
 <script src="assets/js/master.js"></script>
+<script>
+	$(".ratings").starRating({
+		initialRating: 3,
+		useFullStars: true,
+		strokeColor: '#351b5d',
+		strokeWidth: 0,
+		starSize: 25,
+		starShape: 'rounded',
+		hoverColor: '#f58928',
+		activeColor: '#f58928',
+		ratedColor: '#f07408',
+		// useGradient: true,
+		starGradient: {
+			start: '#f58928',
+			end: '#f07408'
+		},
+		callback: function (currentRating, $el) {
+			var id = $el.parents(".meme-container").attr("id");
+			//console.log($el);
+			$.ajax({
+				type: "POST",
+				url: "rate.php",
+				data: {
+					rating: currentRating,
+					postID: id,
+				},
+				success: function () {
+					console.log("Rated: " + currentRating + " stars to post ID " + id);
+				}
+			});
+		},
+	});
+</script>
 </body>
 
 </html>

@@ -5,7 +5,7 @@ session_start();
 $memeUrl = $_POST['picurl'];
 $userID = $_SESSION['userID'];
 
-if ($memeurl != '') {
+if ($memeUrl != '') {
     // Trim whitespace from the beginning and the end of the string
     // because copypasta tends to add unnoticeable spaces sometimes
     ltrim($memeUrl);

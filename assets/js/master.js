@@ -153,37 +153,7 @@ $(document).ready(function () {
 	$(".meme-panel-item.star").on("click", function () {
 		$(this).parents(".meme-panel").prev().slideToggle("fast");
 	});
-	$(".ratings").starRating({
-		initialRating: 3,
-		useFullStars: true,
-		strokeColor: '#351b5d',
-		strokeWidth: 0,
-		starSize: 25,
-		starShape: 'rounded',
-		hoverColor: '#f58928',
-		activeColor: '#f58928',
-		ratedColor: '#f07408',
-		// useGradient: true,
-		starGradient: {
-			start: '#f58928',
-			end: '#f07408'
-		},
-		callback: function (currentRating, $el) {
-			var id = $el.parents(".meme-container").attr("id");
-			//console.log($el);
-			$.ajax({
-				type: "POST",
-				url: "rate.php",
-				data: {
-					rating: currentRating,
-					postID: id,
-				},
-				success: function () {
-					console.log("Rated: " + currentRating + " stars to post ID " + id);
-				}
-			});
-		},
-	});
+
 
 	// Show and hide filters on scroll on small devices
 	var scrollPos = 0;
