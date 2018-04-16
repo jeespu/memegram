@@ -439,22 +439,25 @@ if ($_SESSION['logged_user'] == "") {
 			// 	$("#loader").fadeOut();
 			// }, 1000);
 			var response;
-			$.ajax({ type: "GET",   
-				url: "feedMemes.php",   
-				async: false,
-				success : function(text) {
-						response= text;
-				}
-			});
-			$('#meme-row-left').append(response);
-			$.ajax({ type: "GET",   
-				url: "feedMemes.php",   
-				async: false,
-				success : function(text){
-						response= text;
-				}
-			});
-			$('#meme-row-center').append(response);
+			// If on mobile, add only one pick
+			if (window.innerWidth > 768) {
+				$.ajax({ type: "GET",   
+					url: "feedMemes.php",   
+					async: false,
+					success : function(text) {
+							response= text;
+					}
+				});
+				$('#meme-row-left').append(response);
+				$.ajax({ type: "GET",   
+					url: "feedMemes.php",   
+					async: false,
+					success : function(text){
+							response= text;
+					}
+				});
+				$('#meme-row-center').append(response);
+			}
 			$.ajax({ type: "GET",   
 				url: "feedMemes.php",   
 				async: false,
