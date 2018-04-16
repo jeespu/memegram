@@ -466,8 +466,40 @@ if ($_SESSION['logged_user'] == "") {
 			$(".comment-send").on("click", addComment);
 			$(".delete-comment").one("click", deleteComment)
 			$(".meme-panel-item>.fa-comment").parent().on("click", showComments);
+			$(".ratings").starRating({
+				//initialRating: $(this).attr("id"),
+				useFullStars: true,
+				strokeColor: '#351b5d',
+				strokeWidth: 0,
+				starSize: 25,
+				starShape: 'rounded',
+				hoverColor: '#f58928',
+				activeColor: '#f58928',
+				ratedColor: '#f07408',
+				// useGradient: true,
+				starGradient: {
+					start: '#f58928',
+					end: '#f07408'
+				},
+				callback: function (currentRating, $el) {
+					var id = $el.parents(".meme-container").attr("id");
+					//console.log($el);
+					$.ajax({
+						type: "POST",
+						url: "rate.php",
+						data: {
+							rating: currentRating,
+							postID: id,
+						},
+						//dataType: 'json',
+						success: function () {
+							console.log("Rated: " + currentRating + " stars to post ID " + id);
+							//$el.attr("data-rating", data.avgRating)
+						}
+					});
+				},
+			})
 			$(".meme-panel-item.star").on("click", showStars);
-			
 		}
 	});
 </script>
