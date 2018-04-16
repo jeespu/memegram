@@ -160,7 +160,7 @@ if ($_SESSION['logged_user'] == "") {
 <!-- Meme Feed-->
 <div id="feed-content" class="container-fluid">
 
-	<div class="row meme-row justify-content-around">
+	<div class="row meme-row justify-content-around mb-5">
 		<?php
 		$posts = array();
 		$post = mysqli_query($conn, "SELECT * FROM post ORDER BY addDate DESC");
