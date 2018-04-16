@@ -163,13 +163,13 @@ if ($_SESSION['logged_user'] == "") {
 	<div class="row meme-row justify-content-around">
 		<?php
 		$posts = array();
-		$post = mysqli_query($conn, "SELECT * FROM post");
+		$post = mysqli_query($conn, "SELECT * FROM post ORDER BY addDate DESC");
 
       while ($row = mysqli_fetch_array($post, MYSQLI_ASSOC)) {
 			$poststring = " ";
          $postID = $row['postID'];
          $pictureSource = $row['pictureSource'];
-         $addDate = $row['addDate'];
+         //$addDate = $row['addDate'];
          $avgRating = $row['avgRating'];
 			$posterID = $row['posterID'];
 
@@ -181,17 +181,17 @@ if ($_SESSION['logged_user'] == "") {
 
 			// Add Post
 			$poststring .= sprintf('
-			<div id="%s" class="meme-container rounded my-2">
+			<div id="%s" class="meme-container rounded my-2 pop">
 				<div class="row meme-poster py-2">
 					<div class="col-12 pr-auto align-items-center">
-						<img class="img-fluid rounded-circle ml-2" src="%s"><span class="ml-2">%s</span><span style="visibility:hidden;" class="ml-auto">%s</span>
+						<img class="img-fluid rounded-circle ml-2" src="%s"><span class="ml-2">%s</span>
 					</div>
 				</div>
 				<div class="row meme-img select-disable ">
 					<img class="mx-auto d-block" src="%s">
 				</div>
 				<div class="row ratings-row text-center">
-					<div class="ratings"></div>
+					<div data-rating="%s" class="ratings"></div>
 				</div>
 				<div class="row meme-panel d-flex align-items-center">
 					<div class="col-3 d-flex justify-content-start">
@@ -219,7 +219,7 @@ if ($_SESSION['logged_user'] == "") {
 						</div>
 					</div>
 				</div> <!--meme-panel -->
-				<div class="comments rounded">', $postID, $profilePic, $username, $addDate, $pictureSource);
+				<div class="comments rounded">', $postID, $profilePic, $username, $pictureSource, $avgRating);
 
 			// Add Comments
 			$comment = mysqli_query($conn, "SELECT * FROM comment");
@@ -278,15 +278,14 @@ if ($_SESSION['logged_user'] == "") {
 			// Add poststring to array
 			$posts[] = $poststring;
 		};
+		$_SESSION["posts"] = $posts;
 		?>
 
 		<div id="meme-row-left" class="col-md-4">
 			<?php
-				$leftRow = count($posts) / 3; /* one third  to left side */
-				$centerRow = $leftRow * 2;	/* one third  to center side */
-				$rightRow = count($posts); /* one third  to right side */
-				for ($i = 0; $i < count($posts) / 3; $i++) {
-					echo $posts[$i];
+				for ($i = 0; $i < 3; $i++) {
+					echo $_SESSION["posts"][0];
+					array_shift($_SESSION["posts"]);
 				}
 			?>
 			<script>
@@ -357,23 +356,24 @@ if ($_SESSION['logged_user'] == "") {
 
 		<div id="meme-row-center" class="col-md-4">
 			<?php
-					for ($i = $leftRow; $i < $centerRow; $i++) {
-						echo $posts[$i];
-					}
+				for ($i = 0; $i < 3; $i++) {
+					echo $_SESSION["posts"][0];
+					array_shift($_SESSION["posts"]);
+				}
 			?>
 		</div> <!-- meme-row-center -->
 
 
 		<div id="meme-row-right" class="col-md-4">
 			<?php
-				for ($i = $centerRow; $i < $rightRow; $i++) {
-					echo $posts[$i];
+				for ($i = 0; $i < 3; $i++) {
+					echo $_SESSION["posts"][0];
+					array_shift($_SESSION["posts"]);
 				}
 			?>
 		</div> <!-- meme-row-right-->
-
 	</div><!-- meme-row -->
-
+	<div id="loader"><h3>Loading <span>.</span> <span>.</span> <span>.</span></h3></div>
 </div><!-- feed-content -->
 
 <!-- rating/tooltip -->
@@ -387,8 +387,11 @@ if ($_SESSION['logged_user'] == "") {
 <script src="assets/lib/font-awesome/js/fontawesome-all.min.js "></script>
 <script src="assets/js/master.js"></script>
 <script>
+	// $(window).on("load", function () { 
+	// 	$("#loader").fadeOut();
+	// });
 	$(".ratings").starRating({
-		initialRating: 3,
+		//initialRating: $(this).attr("id"),
 		useFullStars: true,
 		strokeColor: '#351b5d',
 		strokeWidth: 0,
@@ -412,11 +415,51 @@ if ($_SESSION['logged_user'] == "") {
 					rating: currentRating,
 					postID: id,
 				},
+				//dataType: 'json',
 				success: function () {
 					console.log("Rated: " + currentRating + " stars to post ID " + id);
+					//$el.attr("data-rating", data.avgRating)
 				}
 			});
 		},
+	});
+
+	// Infinity scroll
+	$(window).on("scroll", function () {
+		var height = $(this).height();
+		var maxH = $(document).height() - height;
+		if ($(this).scrollTop() + height === $(document).height()) {
+			console.log("Welcome to the bottom");
+			// $("#loader").show()
+			// setTimeout(() => {
+			// 	$("#loader").fadeOut();
+			// }, 1000);
+			var response;
+			$.ajax({ type: "GET",   
+				url: "feedMemes.php",   
+				async: false,
+				success : function(text) {
+						response= text;
+				}
+			});
+			$('#meme-row-left').append(response);
+			$.ajax({ type: "GET",   
+				url: "feedMemes.php",   
+				async: false,
+				success : function(text){
+						response= text;
+				}
+			});
+			$('#meme-row-center').append(response);
+			$.ajax({ type: "GET",   
+				url: "feedMemes.php",   
+				async: false,
+				success : function(text){
+						response= text;
+				}
+			});
+			$('#meme-row-right').append(response);
+		}
 	});
 </script>
 </body>

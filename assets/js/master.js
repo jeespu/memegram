@@ -181,15 +181,6 @@ $(document).ready(function () {
 	// Disable hover effects on touch
 	watchForHover();
 
-	// Infinity scroll
-	// $(window).on("scroll", function () {
-	// 	var height = $(this).height();
-	// 	var maxH = $(document).height() - height;
-	// 	if ($(this).scrollTop() + height === $(document).height()) {
-	// 		console.log("Welcome to the bottom");
-	// 	}
-	// });
-
 });
 
 function deleteComment() {

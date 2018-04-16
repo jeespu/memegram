@@ -22,12 +22,26 @@
    // Update avgRating
    $updateSql = "UPDATE post SET avgRating = (SELECT avg(rating) FROM rating where whichPost = '$postID') where postID='$postID'";
    if ($conn->query($updateSql) === TRUE) {
-         exit();
+      exit();
    } else {
-         // If error occurs
-         echo "Error: " . $sql . "<br>" . $conn->error;
-         die();
+      // If error occurs
+      echo "Error: " . $sql . "<br>" . $conn->error;
+      die();
    }
+
+	// Return avgRating
+	$avgRating = "SELECT avgRating FROM post where postID='$postID'";
+	if ($result = $conn->query($avgRating)) {
+	   $avg = $result->avgRating; // Get inserted commentID
+      $arr = array(
+        'avgRating'=> $avg,
+		);
+		echo json_encode($arr); // Echo to ajax success
+		exit();
+	} else {
+      echo "Error: " . $sql . "<br>" . $conn->error;
+      die();
+	}
 
    // Close connection
    $conn->close();

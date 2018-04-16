@@ -11,6 +11,21 @@
 .slide-down {
 	animation: slideDown 200ms ease both;
 }
+@keyframes pop {
+	from {
+		transform-origin: top center;
+		opacity: 0;
+		transform: scale(0);
+	}
+	to {
+		opacity: 1;
+		transform-origin: top center;
+		transform: scale(1);
+	}
+}
+.pop {
+	animation: pop 800ms ease backwards;
+}
 
 html {
 	min-height: 100%;
@@ -259,6 +274,7 @@ body.hasHover .meme-panel-item:hover .item-regular {
 #filter-container {
 	background: #222;
 	position: fixed;
+	z-index: 2;
 	min-height: 100%;
 	top: 50px;
 	left: 0;
@@ -388,7 +404,42 @@ body.hasHover #filter>li:hover a {
 	 background:none !important;
 } */
 
+@keyframes blink {
+	0% {
+		opacity: 0;
+	}
+	50% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
 
+#loader {
+	display: none;
+	position: fixed;
+	box-sizing: border-box;
+	padding: 0 !important;
+	text-align: center;
+	top:50vh;
+	left: 0;
+	height:100vh; 
+	width:100% !important;
+	margin: 0 !important;
+	background: linear-gradient(to bottom, #f58928, #351b5d); 
+	z-index: 1 !important;
+}
+
+#loader h3 span:first-child {
+	animation: blink 1000ms linear 100ms 30 both;
+}
+#loader h3 span:nth-child(2) {
+	animation: blink 1000ms linear 600ms 30 both;
+}
+#loader h3 span:last-child {
+	animation: blink 1000ms linear 1100ms 30 both;
+}
 /*–––––––––––––––––*/
 /*– Small devices –*/
 /*–––––––––––––––––*/
