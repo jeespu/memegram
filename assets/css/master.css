@@ -1,3 +1,17 @@
+@keyframes slideDown {
+	from {
+		transform-origin: top center;
+		transform: scaleY(0);
+	}
+	to {
+		transform-origin: top center;
+		transform: scaleY(1);
+	}
+}
+.slide-down {
+	animation: slideDown 200ms ease both;
+}
+
 html {
 	min-height: 100%;
 	margin: 0;
