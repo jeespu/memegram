@@ -429,6 +429,7 @@ if ($_SESSION['logged_user'] == "") {
 		var height = $(this).height();
 		var maxH = $(document).height() - height;
 		if ($(this).scrollTop() + height === $(document).height()) {
+			$(".meme-img").off("click");
 			$(".meme-panel-item>.fa-comment").parent().off("click", showComments);
 			$(".comment-send").off("click", addComment);
 			$(".meme-panel-item.star").off("click", showStars);
@@ -466,6 +467,13 @@ if ($_SESSION['logged_user'] == "") {
 			$(".comment-send").on("click", addComment);
 			$(".delete-comment").one("click", deleteComment)
 			$(".meme-panel-item>.fa-comment").parent().on("click", showComments);
+			$(".meme-img").on("click", function () {
+				// console.log($(this).children().attr("src"));
+				$("#pop-up").children().attr("src", $(this).children().attr("src"));
+				$("#pop-up").fadeIn("fast", function () {
+				$(this).css("display", "flex");
+					});
+			});
 			$(".ratings").starRating({
 				//initialRating: $(this).attr("id"),
 				useFullStars: true,

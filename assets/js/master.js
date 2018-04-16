@@ -64,7 +64,6 @@ $(document).ready(function () {
 		$("#pop-up").fadeIn("fast", function () {
 			$(this).css("display", "flex");
 		});
-
 	});
 	$("#pop-up").on("click", function () {
 		$(this).fadeOut("fast");
