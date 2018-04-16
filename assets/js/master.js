@@ -122,7 +122,7 @@ $(document).ready(function () {
 	$(".comment-send").on("click", function addComment() {
 		var sendBtn = $(this);
 		var commentsDiv = $(this).closest(".comments");
-		var id = $(this).parents(".meme-container").attr("id"); // Get comment ID
+		var id = $(this).parents(".meme-container").attr("id"); // Get postID
 		var commentInput = $(this).prev().val(); // Get input
 		$(this).prev().val("");// Clear textarea
 		// Build string
@@ -134,10 +134,12 @@ $(document).ready(function () {
 				comment: commentInput,
 				postID: id,
 			},
-			success: function () {
-				console.log("comment sent");
+			dataType: 'json',
+			success: function (data) {
+				console.log("comment sent with id " + data.lastCommentID);
 				sendBtn.closest(".comment-container").before(commentHTML);
-				$(".delete-comment").on("click", deleteComment);
+				sendBtn.closest(".comment-container").prev(".comment-container").attr("id", data.lastCommentID);
+				$(".delete-comment").one("click", deleteComment);
 			}
 		});
 		//console.log("btn", sendBtn);
@@ -149,7 +151,7 @@ $(document).ready(function () {
 		//console.log("loggedUser", loggedUser);
 	});
 	// Delete Comment
-	$(".delete-comment").on("click", deleteComment)
+	$(".delete-comment").one("click", deleteComment)
 
 	// Rate meme
 	$(".meme-panel-item.star").on("click", function () {
@@ -193,7 +195,7 @@ $(document).ready(function () {
 function deleteComment() {
 	$(this).parents(".comment-container").slideUp("fast");
 
-	var comment = $(this).prev().text();
+	//var comment = $(this).prev().text();
 	var id = $(this).parents(".comment-container").attr("id");
 	// console.log(ev)
 	$.ajax({
@@ -201,7 +203,7 @@ function deleteComment() {
 		url: "deleteComment.php",
 		data: {
 			deleteID: id,
-			deletedComment: comment,
+			//deletedComment: comment,
 		},
 		success: function () {
 			console.log("comment deleted");

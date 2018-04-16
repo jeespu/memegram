@@ -20,16 +20,11 @@ if(password_verify($_POST['loginpassword'], $dbpass)) {
     $_SESSION['modRights'] = $hasModRights;
     exit();
 } else {
-    header("Location: index.php");
-    $notification = sprintf('<script>
-    var notification = "<div class=\'notification\'>Invalid username or password.</div>"; 
-    $(notification).appendTo("body");
-    $(".notification").slideDown("fast").css("display", "flex");
-	window.setTimeout(function () {
-		$(".notification").slideUp("fast");
-	}, 2000);
-    </script>');
-    print $notification;
+    //header("Location: index.php");
+    $location = '<script>window.location.replace("http://memeproject.localhost/meemi/index.php");</script>';
+    $notification = '<script>var notification = "<div class=\'notification\'>Invalid username or password.</div>";$(notification).appendTo("body");$(".notification").slideDown("fast").css("display", "flex");window.setTimeout(function () {$(".notification").slideUp("fast");}, 2000);</script>';
+    echo $location;
+    echo $notification;
     die();
 }
 $conn->close();

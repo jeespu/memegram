@@ -4,11 +4,14 @@
    require "connect.php";
 
    $deletedcommentID = $_POST['deleteID'];
-   $deletedcomment = $_POST['deletedComment'];
+   //$deletedcomment = $_POST['deletedComment'];
    $user = $_SESSION['userID'];
-   //$_SESSION['modRights'] = $hasModRights;
-
-   $sql = "DELETE FROM comment WHERE commentID='$deletedcommentID' OR content='$deletedcomment'";
+   
+   if ($_SESSION['modRights'] == 1) {
+      $sql = "DELETE FROM comment WHERE commentID='$deletedcommentID'";
+   } else {
+      $sql = "DELETE FROM comment WHERE commentID='$deletedcommentID' and whoCommented='$user'";
+   }
 
    if ($conn->query($sql) === TRUE) {
       exit();

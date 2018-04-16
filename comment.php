@@ -8,15 +8,21 @@
    $postID = $_POST['postID'];
    $user = $_SESSION['userID'];
 
-   $sql = "INSERT INTO comment (content, whoCommented, whichPost) VALUES ('$comment', '$user', ' $postID')";
-
+   $sql = "INSERT INTO comment (content, whoCommented, whichPost) VALUES ('$comment', '$user', '$postID')";
+  
    if ($conn->query($sql) === TRUE) {
+      $last_id = $conn->insert_id; // Get inserted commentID
+      $arr = array(
+        'lastCommentID'=> $last_id,
+      );
+      echo json_encode($arr); // Echo to ajax success
       exit();
    } else {
       // If error occurs
       echo "Error: " . $sql . "<br>" . $conn->error;
       die();
    }
+
    // Close connection
    $conn->close();
 

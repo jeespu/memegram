@@ -4,6 +4,11 @@ session_start();
 //Check if session is on
 if ($_SESSION['logged_user'] == "") {
 	header("Location: index.php");
+} else {
+	// Check if logged user has mod rights
+	// $modUser = mysqli_query($conn, sprintf("SELECT modRights FROM user WHERE username = '%s'",$_SESSION['logged_user']));
+   // $modRow = mysqli_fetch_array($modUser, MYSQLI_ASSOC);
+	// $hasModRights = $_SESSION['modRights'];
 }
 ?>
 
@@ -231,7 +236,7 @@ if ($_SESSION['logged_user'] == "") {
 					$username = $userrow['username'];
 					$userID = $userrow['userID'];
 					// Add Comment String
-					if ($userID == $_SESSION['userID'] || $_SESSION['modRights'] == 1  ) {
+					if (($userID == $_SESSION['userID']) || $_SESSION['modRights'] == 1 )  {
 						$poststring .= sprintf('
 						<div id="%s" class="comment-container">
 							<div class="comment-author"><strong>%s</strong></div>
