@@ -106,9 +106,7 @@ $(document).ready(function () {
 	// });
 
 	// Toggle Comment Section
-	$(".meme-panel-item>.fa-comment").parent().on("click", function (ev) {
-		$(this).parents(".meme-panel").next().slideToggle("fast");
-	});
+	$(".meme-panel-item>.fa-comment").parent().on("click", showComments);
 	// Resize text-area automatically
 	autosize($('textarea'));
 	// Submit on enter
@@ -119,7 +117,39 @@ $(document).ready(function () {
 		}
 	});
 	// Add Comment
-	$(".comment-send").on("click", function addComment() {
+	$(".comment-send").on("click", addComment);
+	// Delete Comment
+	$(".delete-comment").one("click", deleteComment)
+
+	// Rate meme
+	$(".meme-panel-item.star").on("click", showStars);
+
+
+	// Show and hide filters on scroll on small devices
+	var scrollPos = 0;
+	$(window).on("scroll", function () {
+		if ($(window).width() <= 768) {
+			clearTimeout($.data(this, "scrollTimer"));
+			var pos = $(this).scrollTop();
+			if (pos > scrollPos) { //Scrolling Down
+				$.data(this, "scrollTimer", setTimeout(function () {
+					$("#filter").slideUp("fast");
+				}, 20));
+			} else { //Scrolling Up
+				$.data(this, "scrollTimer", setTimeout(function () {
+					$("#filter").slideDown("fast");
+				}, 50));
+			}
+			scrollPos = $(this).scrollTop();
+		}
+	});
+
+	// Disable hover effects on touch
+	watchForHover();
+
+});
+
+function addComment() {
 		var sendBtn = $(this);
 		var commentsDiv = $(this).closest(".comments");
 		var id = $(this).parents(".meme-container").attr("id"); // Get postID
@@ -149,39 +179,15 @@ $(document).ready(function () {
 		//console.log("commentHtml", commentHTML);
 		//console.log("newComment", newComment);
 		//console.log("loggedUser", loggedUser);
-	});
-	// Delete Comment
-	$(".delete-comment").one("click", deleteComment)
+	}
 
-	// Rate meme
-	$(".meme-panel-item.star").on("click", function () {
-		$(this).parents(".meme-panel").prev().slideToggle("fast");
-	});
+function showComments() {
+	$(this).parents(".meme-panel").next().slideToggle("fast");
+}
 
-
-	// Show and hide filters on scroll on small devices
-	var scrollPos = 0;
-	$(window).on("scroll", function () {
-		if ($(window).width() <= 768) {
-			clearTimeout($.data(this, "scrollTimer"));
-			var pos = $(this).scrollTop();
-			if (pos > scrollPos) { //Scrolling Down
-				$.data(this, "scrollTimer", setTimeout(function () {
-					$("#filter").slideUp("fast");
-				}, 20));
-			} else { //Scrolling Up
-				$.data(this, "scrollTimer", setTimeout(function () {
-					$("#filter").slideDown("fast");
-				}, 50));
-			}
-			scrollPos = $(this).scrollTop();
-		}
-	});
-
-	// Disable hover effects on touch
-	watchForHover();
-
-});
+function showStars() { 
+	$(this).parents(".meme-panel").prev().slideToggle("fast");
+}
 
 function deleteComment() {
 	$(this).parents(".comment-container").slideUp("fast");
