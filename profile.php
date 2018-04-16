@@ -1,7 +1,7 @@
 <?php require 'connect.php';
 session_start();
 if ($_SESSION['logged_user'] == "") {
-		header("Location: index.html");
+		header("Location: index.php");
 	}
 ?>
 <!DOCTYPE html>
