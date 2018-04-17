@@ -237,6 +237,7 @@ if ($_SESSION['logged_user'] == "") {
 					$userrow = mysqli_fetch_array($user, MYSQLI_ASSOC);
 					$username = $userrow['username'];
 					$userID = $userrow['userID'];
+					$hasModRights = $userrow['modRights'];
 					// Add Comment String
 					if ( ($userID == $_SESSION['userID']) && ($_SESSION['modRights'] == 1)) {
 						$poststring .= sprintf('
