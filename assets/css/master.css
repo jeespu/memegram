@@ -67,6 +67,10 @@ h3 {
 	user-select: none;
 }
 
+.no-focus:focus {
+    outline: none;
+}
+
 .navbar-toggler {
 	outline: none;
 	border: none;
@@ -142,6 +146,7 @@ meme-poster:first-child {
 }
 
 .meme-panel-item {
+	overflow: hidden;
 	color: #fff;
 	width: 50px;
 	height: 30px;
@@ -257,7 +262,11 @@ body.hasHover .meme-panel-item:hover .item-regular {
 	font-size: 0;
 }
 
+/* #pop-up-container {
+	display: none;
+} */
 #pop-up {
+	display: flex;
 	display: none;
 	position: fixed;
 	align-items: center;
@@ -425,29 +434,29 @@ body.hasHover #filter>li:hover a {
 	}
 }
 
-#loader {
+#loader-container {
 	display: none;
+}
+#loader {
+	align-items: center;
+	justify-content: center;
 	position: fixed;
+	top: 0;
 	box-sizing: border-box;
 	padding: 0 !important;
-	text-align: center;
-	top:50vh;
-	left: 0;
 	height:100vh; 
-	width:100% !important;
 	margin: 0 !important;
-	background: linear-gradient(to bottom, #f58928, #351b5d); 
 	z-index: 1 !important;
 }
-
-#loader h3 span:first-child {
-	animation: blink 1000ms linear 100ms 30 both;
+#loader h1 {margin: 0};
+#loader h1 span:first-child {
+	animation: blink 1000ms linear 100ms 40 both;
 }
-#loader h3 span:nth-child(2) {
-	animation: blink 1000ms linear 600ms 30 both;
+#loader h1 span:nth-child(2) {
+	animation: blink 1000ms linear 600ms 40 both;
 }
-#loader h3 span:last-child {
-	animation: blink 1000ms linear 1100ms 30 both;
+#loader h1 span:last-child {
+	animation: blink 1000ms linear 1100ms 40 both;
 }
 
 

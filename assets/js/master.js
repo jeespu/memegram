@@ -109,12 +109,12 @@ $(document).ready(function () {
 	// Resize text-area automatically
 	autosize($('textarea'));
 	// Submit on enter
-	$('textarea').on("keydown", function (ev) {
-		//ev.preventDefault();
-		if (ev.which === 13) {
-			$(this).parent().submit();
-		}
-	});
+	// $('textarea').on("keydown", function (ev) {
+	// 	//ev.preventDefault();
+	// 	if (ev.which === 13) {
+	// 		$(this).parent().submit();
+	// 	}
+	// });
 	// Add Comment
 	$(".comment-send").on("click", addComment);
 	// Delete Comment
@@ -143,15 +143,38 @@ $(document).ready(function () {
 		}
 	});
 
-	$("#top-rated").on("click", function () { 
+	$("#top-rated").parent().on("click", function () { 
+		$(".meme-row").fadeOut("fast");
+		$("#loader-container").show();
+		var filter = $(this).children("#top-rated").attr("id");
 		console.log("Re-ordering");
-		$(".meme-row").fadeOut();
-		$("#loader").show();
-		$(".meme-row").load("orderFeed.php", function () { 
-			// Reattach event handlers
-			reattachHandlers();
-		});
+		setTimeout(function () {
+			$.ajax({
+				type: "POST",
+				url: "orderFeed.php",
+				data: { orderBy: filter },
+				success: function () {
+					$(".meme-row").load("orderFeed.php", function () {
+						// Reattach event handlers
+						reattachHandlers();
+						$("#loader-container").hide();
+						$(".meme-row").fadeIn("fast");
+					});
+				}
+			})
+		}, 200);
+		//reattachHandlers();
+		// $(".meme-row").load("orderFeed.php", function () { 
+		// 	// Reattach event handlers
+		// 	reattachHandlers();
+		// 	$("#loader").hide();
+		// 	$(".meme-row").fadeIn();
+		// });
 	})
+	// $("#top-rated").parent().on("click", function(){
+	// 	$("#top-rated").click();
+	// })
+
 
 	// Disable hover effects on touch
 	watchForHover();
@@ -267,6 +290,15 @@ function reattachHandlers() {
 		},
 	})
 	$(".meme-panel-item.star").on("click", showStars);
+	// Enable tooltips
+	if (window.innerWidth > 768) {
+		$(function () {
+			$('[data-toggle="tooltip"]').tooltip({
+				// Add some delay
+				delay: { "show": 1000, "hide": 100 }
+			})
+		})
+	}
 }
 
 function watchForHover() {

@@ -1,9 +1,22 @@
+var confirmDelete = false;
+
 $('[data-toggle=confirmation]').confirmation({
   rootSelector: '[data-toggle=confirmation]',
   onConfirm: function(){
-    console.log("vittu");
-    $.ajax({ url: 'deleteProfile.php' });
+    confirmDelete = true;
+    $.ajax({
+      method: 'GET',
+      url: 'deleteProfile.php' });
   },
+});
+
+$(document).ajaxComplete(function(){
+  if (confirmDelete === true) {
+    window.location.href = "logout.php";
+  }
+  else {
+    window.location.replace(profile.php);
+  }
 });
 
 $('#profilePicForm').hide();

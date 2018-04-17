@@ -153,9 +153,11 @@ if ($_SESSION['logged_user'] == "") {
 </div>
 
 <!-- For enlarging Memes -->
-<div id="pop-up">
-	<img class="rounded select-disable" draggable="false"/> <!-- Korjattu(?) -->
-</div>
+<!-- <div id="pop-up-container"> -->
+	<div id="pop-up">
+		<img class="rounded select-disable" draggable="false"/>
+	</div>
+<!-- <div> -->
 
 <!-- Meme Feed-->
 <div id="feed-content" class="container-fluid">
@@ -373,7 +375,9 @@ if ($_SESSION['logged_user'] == "") {
 			?>
 		</div> <!-- meme-row-right-->
 	</div><!-- meme-row -->
-	<div id="loader"><h3>Loading <span>.</span> <span>.</span> <span>.</span></h3></div>
+	<div id="loader-container">
+		<div id="loader" class="d-flex col-md-10 justify-content-center"><div><h1>Loading <span>.</span> <span>.</span> <span>.</span></h1></div></div>
+	<div>
 </div><!-- feed-content -->
 
 <!-- rating/tooltip -->
@@ -427,17 +431,8 @@ if ($_SESSION['logged_user'] == "") {
 	// Infinity scroll
 	$(window).on("scroll", function () {
 		// Add some extra pixels to load more memes just before the end of the document
-		var height = $(this).height() + 50; 
+		var height = $(this).height() + 100; 
 		if ($(this).scrollTop() + height >= $(document).height()) {
-			$(".meme-img").off("click");
-			$(".meme-panel-item>.fa-comment").parent().off("click", showComments);
-			$(".comment-send").off("click", addComment);
-			$(".meme-panel-item.star").off("click", showStars);
-			//console.log("Welcome to the bottom");
-			// $("#loader").show()
-			// setTimeout(() => {
-			// 	$("#loader").fadeOut();
-			// }, 1000);
 			var response;
 			// If on mobile, add only one pick
 			if (window.innerWidth > 768) {
@@ -452,7 +447,8 @@ if ($_SESSION['logged_user'] == "") {
 			}
 
 			if (window.innerWidth > 576) {
-				$.ajax({ type: "GET",   
+				$.ajax({ 
+					type: "GET",   
 					url: "feedMemes.php",   
 					async: false,
 					success : function(text){
@@ -471,50 +467,7 @@ if ($_SESSION['logged_user'] == "") {
 			});
 			$('#meme-row-right').append(response);
 			// Reattach event handlers
-			$(".comment-send").on("click", addComment);
-			$(".delete-comment").one("click", deleteComment)
-			$(".meme-panel-item>.fa-comment").parent().on("click", showComments);
-			$(".meme-img").on("click", function () {
-				// console.log($(this).children().attr("src"));
-				$("#pop-up").children().attr("src", $(this).children().attr("src"));
-				$("#pop-up").fadeIn("fast", function () {
-					$(this).css("display", "flex");
-				});
-			});
-			$(".ratings").starRating({
-				//initialRating: $(this).attr("id"),
-				useFullStars: true,
-				strokeColor: '#351b5d',
-				strokeWidth: 0,
-				starSize: 25,
-				starShape: 'rounded',
-				hoverColor: '#f58928',
-				activeColor: '#f58928',
-				ratedColor: '#f07408',
-				// useGradient: true,
-				starGradient: {
-					start: '#f58928',
-					end: '#f07408'
-				},
-				callback: function (currentRating, $el) {
-					var id = $el.parents(".meme-container").attr("id");
-					//console.log($el);
-					$.ajax({
-						type: "POST",
-						url: "rate.php",
-						data: {
-							rating: currentRating,
-							postID: id,
-						},
-						//dataType: 'json',
-						success: function () {
-							console.log("Rated: " + currentRating + " stars to post ID " + id);
-							//$el.attr("data-rating", data.avgRating)
-						}
-					});
-				},
-			})
-			$(".meme-panel-item.star").on("click", showStars);
+			reattachHandlers();
 		}
 	});
 </script>

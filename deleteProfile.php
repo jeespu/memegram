@@ -1,23 +1,30 @@
 <?php require "connect.php";
 session_start();
-
-echo "asd";
 $loggedID = $_SESSION['userID'];
 
-$sql = "BEGIN TRY
-BEGIN TRANSACTION
-DELETE FROM comment WHERE whoCommented='$loggedID';
-DELETE FROM rating WHERE whoRated='$loggedID';
-DELETE FROM post WHERE posterID='$loggedID';
-DELETE FROM user WHERE userID='$loggedID';
-COMMIT
-END TRY
-BEGIN CATCH
-ROLLBACK
-END CATCH";
+$deleteCommentsFromOthers = "DELETE comment FROM comment
+INNER JOIN post ON comment.whichPost=post.postID
+INNER JOIN user ON post.posterID=user.userID
+WHERE posterID='$loggedID'";
 
-if ($conn->query($sql) === TRUE) {
-  header("location: profile.php");
-}
+$deleteRatings = "DELETE rating
+FROM rating
+INNER JOIN post ON rating.whichPost=post.postID
+INNER JOIN user ON post.posterID=user.userID
+WHERE posterID='$loggedID'";
 
+$deleteCommentsFromSelf = "DELETE comment FROM comment WHERE whoCommented='$loggedID'";
+$deleteRatingsFromSelf = "DELETE rating FROM rating WHERE whoRated='$loggedID'";
+$deletePosts = "DELETE post FROM post WHERE posterID='$loggedID'";
+$deleteUser = "DELETE user FROM user WHERE userID='$loggedID'";
+
+$conn->query($deleteCommentsFromOthers);
+$conn->query($deleteCommentsFromSelf);
+$conn->query($deleteRatings);
+$conn->query($deletePosts);
+$conn->query($deleteUser);
+
+session_unset();
+session_destroy();
+exit();
 ?>

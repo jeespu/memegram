@@ -12,17 +12,23 @@ if ($_SESSION['logged_user'] == "") {
 	<title>Profile</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" type="text/css" href="assets/css/master.css">
 	<link rel="stylesheet" href="assets/lib/bootstrap4/css/bootstrap.min.css">
 	<link href="https://fonts.googleapis.com/css?family=Cabin:400,600,700|Luckiest+Guy" rel="stylesheet">
+	<link rel="stylesheet" href="assets/lib/font-awesome/css/fa-svg-with-js.css"/>
+	<link rel="stylesheet" type="text/css" href="assets/css/master.css">
 	<style>
 		#wrapper {
-			background-color: rgb(33, 37, 41);
+			/* background-color: rgb(33, 37, 41); */
+			background-color: #222;
 			border-radius: 8px 8px 8px;
 		}
 
 		#profilePic:hover {
 			cursor:pointer;
+		}
+		a:hover {
+			text-decoration: none;
+			color: #fff !important;
 		}
 	</style>
 </head>
@@ -38,12 +44,10 @@ if ($_SESSION['logged_user'] == "") {
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav ml-auto">
 				<li class="nav-item">
-					<a class="nav-link" href="#">
-						<i class="fas fa-plus"></i>
-					</a>
+					<a class="nav-link" href="feed.php">Feed<i class="far fa-images ml-2"></i></a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="logout.php">Logout</a>
+					<a class="nav-link" href="logout.php">Logout<i class="fas fa-sign-out-alt ml-2"></i></a>
 				</li>
 			</ul>
 		</div>
@@ -64,13 +68,13 @@ if ($_SESSION['logged_user'] == "") {
 									<button onclick="postProfilePic();" class="orange-btn btn btn-warning" type="submit">Submit</button>
 								</form>
 							</div>
-						<h1 id="userName" class="display-4 text-center" style="margin: 20px auto 0 auto;">
+						<h1 id="userName" class="display-4 text-center text-light" style="margin: 20px auto 0 auto;">
 							<?php $result = mysqli_query($conn, sprintf("SELECT username FROM user WHERE userID = '%s'",$_SESSION['userID']));
 							$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 							$currentUserName = $row['username'];
 							echo $currentUserName?>
 						</h1>
-						<p id="fullName" class="lead text-center" style="margin: 0 auto;">
+						<p id="fullName" class="lead text-center text-light" style="margin: 0 auto;">
 							<?php $result = mysqli_query($conn, sprintf("SELECT * FROM user WHERE userID = '%s'",$_SESSION['userID']));
 							while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 								$currentFirstName = $row['firstName'];
@@ -78,7 +82,7 @@ if ($_SESSION['logged_user'] == "") {
 							}
 							echo $currentFirstName . " " . $currentLastName ?>
 						</p>
-						<p id="email" class="text-center" style="margin: 0 auto;">
+						<p id="email" class="text-center text-light" style="margin: 0 auto;">
 							<?php $result = mysqli_query($conn, sprintf("SELECT email FROM user WHERE userID = '%s'",$_SESSION['userID']));
 							$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 							$currentEmail = $row['email'];
@@ -89,12 +93,12 @@ if ($_SESSION['logged_user'] == "") {
 					<div id="changeStuff">
 
 						<div class="row justify-content-center my-4">
-							<button class="btn orange-btn dropdown-toggle d-inline" type="button" id="profile-username" data-toggle="dropdown" aria-haspopup="true"
+							<button class="btn orange-btn dropdown-toggle d-inline col-md-4  col-6" type="button" id="profile-username" data-toggle="dropdown" aria-haspopup="true"
 								aria-expanded="false">
 								Change your username
 							</button>
 							<div id="profile-username">
-								<form  class="dropdown-menu">
+								<form  class="dropdown-menu col-md-4  col-6">
 									<input type="text" name="username" class="form-control" placeholder="Enter a new username..." >
 									<button onclick="updateUsername();" name="btnChangeUserName" class="orange-btn btn btn-warning" type="submit">Submit</button>
 								</form>
@@ -102,12 +106,12 @@ if ($_SESSION['logged_user'] == "") {
 						</div>
 
 						<div class="row justify-content-center my-4">
-							<button class="btn orange-btn dropdown-toggle" type="button" id="profile-firstName" data-toggle="dropdown" aria-haspopup="true"
+							<button class="btn orange-btn dropdown-toggle col-md-4  col-6" type="button" id="profile-firstName" data-toggle="dropdown" aria-haspopup="true"
 								aria-expanded="false">
 								Change your first name
 							</button>
 							<div id="profile-firstName">
-								<form class="dropdown-menu">
+								<form class="dropdown-menu col-md-4  col-6">
 									<input type="text" name="firstname" class="form-control" placeholder="Enter a new first name..." >
 									<button onclick="updateFirstName();" class="orange-btn btn btn-warning" type="submit">Submit</button>
 								</form>
@@ -115,12 +119,12 @@ if ($_SESSION['logged_user'] == "") {
 						</div>
 
 						<div class="row justify-content-center my-4">
-							<button class="btn orange-btn dropdown-toggle" type="button" id="profile-lastName" data-toggle="dropdown" aria-haspopup="true"
+							<button class="btn orange-btn dropdown-toggle col-md-4  col-6" type="button" id="profile-lastName" data-toggle="dropdown" aria-haspopup="true"
 								aria-expanded="false">
 								Change your last name
 							</button>
 							<div id="profile-lastName">
-								<form class="dropdown-menu">
+								<form class="dropdown-menu col-md-4  col-6">
 									<input type="text" name="lastname" class="form-control" placeholder="Enter a new last name..." >
 									<button onclick="updateLastname();" class="orange-btn btn btn-warning" type="submit">Submit</button>
 								</form>
@@ -128,12 +132,12 @@ if ($_SESSION['logged_user'] == "") {
 						</div>
 
 						<div class="row justify-content-center my-4">
-							<button class="btn orange-btn dropdown-toggle" type="button" id="profile-email" data-toggle="dropdown" aria-haspopup="true"
+							<button class="btn orange-btn dropdown-toggle col-md-4   col-6" type="button" id="profile-email" data-toggle="dropdown" aria-haspopup="true"
 								aria-expanded="false">
 								Change your email
 							</button>
 							<div id="profile-email">
-								<form id="profile-email" class="dropdown-menu">
+								<form id="profile-email" class="dropdown-menu col-md-4  col-6">
 									<input type="text" name="email" class="form-control" placeholder="Enter a new email">
 									<button onclick="updateEmail();" class="orange-btn btn btn-warning" type="submit">Submit</button>
 								</form>
@@ -155,10 +159,11 @@ if ($_SESSION['logged_user'] == "") {
 			</div>
 		</div>
 	</div>
+	<script src="assets/lib/popper.min.js"></script>
+	<script src="assets/lib/jquery.min.js"></script>
+	<script src="assets/lib/bootstrap4/js/bootstrap.bundle.min.js"></script>
+	<script src="assets/lib/bootstrap-confirmation-min.js"></script>
+	<script src="assets/lib/font-awesome/js/fontawesome-all.min.js "></script>
+	<script src="assets/js/profile.js"></script>
 </body>
-<script src="assets/lib/popper.min.js"></script>
-<script src="assets/lib/jquery.min.js"></script>
-<script src="assets/lib/bootstrap4/js/bootstrap.bundle.min.js"></script>
-<script src="assets/lib/bootstrap-confirmation-min.js"></script>
-<script src="assets/js/profile.js"></script>
 </html>

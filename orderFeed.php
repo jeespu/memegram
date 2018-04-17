@@ -2,8 +2,13 @@
    require 'connect.php';
    session_start();
 
+   $orderBy = $_POST['orderBy'];
+   //if($orderBy == "top-rated") {
+      $post = mysqli_query($conn, "SELECT * FROM post ORDER BY avgRating DESC");
+   // }
+
 		$posts = array();
-		$post = mysqli_query($conn, "SELECT * FROM post ORDER BY avgRating DESC");
+		//$post = mysqli_query($conn, "SELECT * FROM post ORDER BY avgRating DESC");
 
       while ($row = mysqli_fetch_array($post, MYSQLI_ASSOC)) {
 			$poststring = " ";
@@ -145,6 +150,7 @@
 				for ($i = 0; $i < 3; $i++) {
 					echo $_SESSION["posts"][0];
 					array_shift($_SESSION["posts"]);
-				}
+            }
 			?>
-		</div> 
+      </div> 
+      <?php echo 'Filter' . $orderBy; ?>
