@@ -16,7 +16,7 @@ if (mysqli_num_rows($dupResult) > 0) {
   // Found a user with that name.
   header("Location: index.php");
   exit();
-} else if {
+}
   $sql = "INSERT INTO user (username, email, password)
   VALUES ('$user', '$email', '$pass')";
 
