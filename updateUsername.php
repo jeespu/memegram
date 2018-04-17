@@ -5,7 +5,7 @@ $loggedID = $_SESSION['userID'];
 $newUsername = $_POST['uusikayttajanimi'];
 
 $noDuplicates2 = "SELECT username FROM user WHERE username='$newUsername'";
-$dupResult2 = mysqli_query($noDuplicates2);
+$dupResult2 = mysqli_query($conn, $noDuplicates2);
 
 if (mysqli_num_rows($dupResult2) > 0) {
   // Found a user with that name.
