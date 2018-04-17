@@ -12,12 +12,13 @@ if ($_SESSION['logged_user'] == "") {
 	<title>Profile</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="assets/css/master.css">
 	<link rel="stylesheet" href="assets/lib/bootstrap4/css/bootstrap.min.css">
 	<link href="https://fonts.googleapis.com/css?family=Cabin:400,600,700|Luckiest+Guy" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" href="assets/css/master.css">
 	<style>
 		#wrapper {
-			background-color: rgba(255, 255, 255, 0.5);
+			background-color: rgb(33, 37, 41);
+			border-radius: 8px 8px 8px;
 		}
 
 		#profilePic:hover {
@@ -88,7 +89,7 @@ if ($_SESSION['logged_user'] == "") {
 					<div id="changeStuff">
 
 						<div class="row justify-content-center my-4">
-							<button class="btn btn-dark dropdown-toggle d-inline" type="button" id="profile-username" data-toggle="dropdown" aria-haspopup="true"
+							<button class="btn orange-btn dropdown-toggle d-inline" type="button" id="profile-username" data-toggle="dropdown" aria-haspopup="true"
 								aria-expanded="false">
 								Change your username
 							</button>
@@ -101,7 +102,7 @@ if ($_SESSION['logged_user'] == "") {
 						</div>
 
 						<div class="row justify-content-center my-4">
-							<button class="btn btn-dark dropdown-toggle" type="button" id="profile-firstName" data-toggle="dropdown" aria-haspopup="true"
+							<button class="btn orange-btn dropdown-toggle" type="button" id="profile-firstName" data-toggle="dropdown" aria-haspopup="true"
 								aria-expanded="false">
 								Change your first name
 							</button>
@@ -114,7 +115,7 @@ if ($_SESSION['logged_user'] == "") {
 						</div>
 
 						<div class="row justify-content-center my-4">
-							<button class="btn btn-dark dropdown-toggle" type="button" id="profile-lastName" data-toggle="dropdown" aria-haspopup="true"
+							<button class="btn orange-btn dropdown-toggle" type="button" id="profile-lastName" data-toggle="dropdown" aria-haspopup="true"
 								aria-expanded="false">
 								Change your last name
 							</button>
@@ -127,7 +128,7 @@ if ($_SESSION['logged_user'] == "") {
 						</div>
 
 						<div class="row justify-content-center my-4">
-							<button class="btn btn-dark dropdown-toggle" type="button" id="profile-email" data-toggle="dropdown" aria-haspopup="true"
+							<button class="btn orange-btn dropdown-toggle" type="button" id="profile-email" data-toggle="dropdown" aria-haspopup="true"
 								aria-expanded="false">
 								Change your email
 							</button>
@@ -141,13 +142,23 @@ if ($_SESSION['logged_user'] == "") {
 
 					</div>
 
+					<div id="deleteProfile">
+						<button class="btn btn-large btn-danger my-3 float-right" data-popout="true" data-toggle="confirmation"
+        data-btn-ok-label="I'm sure." data-btn-ok-class="btn-danger"
+        data-btn-ok-icon-class="material-icons"
+        data-btn-cancel-label="On a second thought..." data-btn-cancel-class="btn-success"
+        data-btn-cancel-icon-class="material-icons"
+        data-title="Are you sure?" data-content="This will delete all ratings, pictures and comments posted by you.">
+				Delete this account</button>
+					</div>
+
 			</div>
 		</div>
 	</div>
-	<script src="assets/lib/jquery.min.js"></script>
-	<script src="assets/lib/bootstrap4/js/bootstrap.bundle.min.js"></script>
 </body>
-
+<script src="assets/lib/popper.min.js"></script>
+<script src="assets/lib/jquery.min.js"></script>
+<script src="assets/lib/bootstrap4/js/bootstrap.bundle.min.js"></script>
+<script src="assets/lib/bootstrap-confirmation-min.js"></script>
 <script src="assets/js/profile.js"></script>
-
 </html>

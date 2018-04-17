@@ -1,3 +1,22 @@
+$('[data-toggle=confirmation]').confirmation({
+  rootSelector: '[data-toggle=confirmation]',
+  onConfirm: function(){
+    console.log("vittu");
+    $.ajax({ url: 'deleteProfile.php' });
+  },
+});
+
+$('#profilePicForm').hide();
+
+$('#profilePic').on('click',function(){
+  if ($('#profilePicForm').is(':visible')) {
+    $('#profilePicForm').slideUp(200);
+  }
+  else {
+    $('#profilePicForm').slideDown(200);
+  }
+});
+
 function updateUsername(){
   var newUserName = $("input[name='username']").val();
   $.post( "updateUsername.php", {uusikayttajanimi : newUserName}, console.log("Success!"));
