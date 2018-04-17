@@ -130,18 +130,28 @@ $(document).ready(function () {
 		if ($(window).width() <= 768) {
 			clearTimeout($.data(this, "scrollTimer"));
 			var pos = $(this).scrollTop();
-			if (pos > scrollPos) { //Scrolling Down
-				$.data(this, "scrollTimer", setTimeout(function () {
+			if (pos > scrollPos && pos > 0) { //Scrolling Down
+				//$.data(this, "scrollTimer", setTimeout(function () {
 					$("#filter").slideUp("fast");
-				}, 20));
+				//}, 150));
 			} else { //Scrolling Up
 				$.data(this, "scrollTimer", setTimeout(function () {
 					$("#filter").slideDown("fast");
-				}, 50));
+				}, 150));
 			}
 			scrollPos = $(this).scrollTop();
 		}
 	});
+
+	$("#top-rated").on("click", function () { 
+		console.log("Re-ordering");
+		$(".meme-row").fadeOut();
+		$("#loader").show();
+		$(".meme-row").load("orderFeed.php", function () { 
+			// Reattach event handlers
+			reattachHandlers();
+		});
+	})
 
 	// Disable hover effects on touch
 	watchForHover();
@@ -206,6 +216,58 @@ function deleteComment() {
 		}
 	})
 };
+
+function reattachHandlers() { 
+	// Remove previous handlers
+	$(".meme-img").off("click");
+	$(".meme-panel-item>.fa-comment").parent().off("click", showComments);
+	$(".comment-send").off("click", addComment);
+	$(".meme-panel-item.star").off("click", showStars);
+	// Reattach  handlers
+	$(".comment-send").on("click", addComment);
+	$(".delete-comment").one("click", deleteComment)
+	$(".meme-panel-item>.fa-comment").parent().on("click", showComments);
+	$(".meme-img").on("click", function () {
+		$("#pop-up").children().attr("src", $(this).children().attr("src"));
+		$("#pop-up").fadeIn("fast", function () {
+			$(this).css("display", "flex");
+		});
+	});
+	$(".ratings").starRating({
+		//initialRating: $(this).attr("id"),
+		useFullStars: true,
+		strokeColor: '#351b5d',
+		strokeWidth: 0,
+		starSize: 25,
+		starShape: 'rounded',
+		hoverColor: '#f58928',
+		activeColor: '#f58928',
+		ratedColor: '#f07408',
+		// useGradient: true,
+		starGradient: {
+			start: '#f58928',
+			end: '#f07408'
+		},
+		callback: function (currentRating, $el) {
+			var id = $el.parents(".meme-container").attr("id");
+			//console.log($el);
+			$.ajax({
+				type: "POST",
+				url: "rate.php",
+				data: {
+					rating: currentRating,
+					postID: id,
+				},
+				//dataType: 'json',
+				success: function () {
+					console.log("Rated: " + currentRating + " stars to post ID " + id);
+					//$el.attr("data-rating", data.avgRating)
+				}
+			});
+		},
+	})
+	$(".meme-panel-item.star").on("click", showStars);
+}
 
 function watchForHover() {
 	var hasHoverClass = false;

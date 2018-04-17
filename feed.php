@@ -126,28 +126,28 @@ if ($_SESSION['logged_user'] == "") {
 				<i class="far fa-star item-regular"></i>
 				<i class="fas fa-star item-solid"></i>
 			</div>
-			<a href="#">Top Rated</a>
+			<a id="top-rated" href="#">Top Rated</a>
 		</li>
 		<li class="d-flex align-items-center my-2">
 			<div class="filter-item d-inline-flex pr-2 justify-content-center">
 				<i class="fas fa-chart-line item-regular"></i>
 				<i style="background:#fff; color:#222; border:1px solid #fff;border-radius:3px;"class="fas fa-chart-line item-solid"></i>
 			</div>
-			<a href="#">Trending</a>
+			<a id="trending" href="#">Trending</a>
 		</li>
 		<li class="d-flex align-items-center my-2">
 			<div class="filter-item d-inline-flex pr-2 justify-content-center">
 				<i class="far fa-image item-regular"></i>
 				<i class="fas fa-image item-solid"></i>
 			</div>
-			<a href="#">My Memes</a>
+			<a id="my-memes" href="#">My Memes</a>
 		</li>
 		<li class="d-flex align-items-center">
 			<div class="filter-item d-inline-flex pr-2 justify-content-center">
 				<i class="far fa-bookmark item-regular"></i>
 				<i class="fas fa-bookmark item-solid"></i>
 			</div>
-			<a href="#">Saved Memes</a>
+			<a id="saved-memes" href="#">Saved Memes</a>
 		</li>
 	</ul>
 </div>
@@ -281,7 +281,7 @@ if ($_SESSION['logged_user'] == "") {
 		$_SESSION["posts"] = $posts;
 		?>
 
-		<div id="meme-row-left" class="col-md-4">
+		<div id="meme-row-left" class="col-md-4 col-sm-6">
 			<?php
 				for ($i = 0; $i < 3; $i++) {
 					echo $_SESSION["posts"][0];
@@ -354,7 +354,7 @@ if ($_SESSION['logged_user'] == "") {
 
 		</div><!-- meme-row-left -->
 
-		<div id="meme-row-center" class="col-md-4">
+		<div id="meme-row-center" class="col-md-4 col-sm-6">
 			<?php
 				for ($i = 0; $i < 3; $i++) {
 					echo $_SESSION["posts"][0];
@@ -364,7 +364,7 @@ if ($_SESSION['logged_user'] == "") {
 		</div> <!-- meme-row-center -->
 
 
-		<div id="meme-row-right" class="col-md-4">
+		<div id="meme-row-right" class="col-md-4 col-sm-6">
 			<?php
 				for ($i = 0; $i < 3; $i++) {
 					echo $_SESSION["posts"][0];
@@ -426,9 +426,9 @@ if ($_SESSION['logged_user'] == "") {
 
 	// Infinity scroll
 	$(window).on("scroll", function () {
-		var height = $(this).height();
-		var maxH = $(document).height() - height;
-		if ($(this).scrollTop() + height === $(document).height()) {
+		// Add some extra pixels to load more memes just before the end of the document
+		var height = $(this).height() + 50; 
+		if ($(this).scrollTop() + height >= $(document).height()) {
 			$(".meme-img").off("click");
 			$(".meme-panel-item>.fa-comment").parent().off("click", showComments);
 			$(".comment-send").off("click", addComment);
@@ -449,6 +449,9 @@ if ($_SESSION['logged_user'] == "") {
 					}
 				});
 				$('#meme-row-left').append(response);
+			}
+
+			if (window.innerWidth > 576) {
 				$.ajax({ type: "GET",   
 					url: "feedMemes.php",   
 					async: false,
@@ -458,6 +461,7 @@ if ($_SESSION['logged_user'] == "") {
 				});
 				$('#meme-row-center').append(response);
 			}
+
 			$.ajax({ type: "GET",   
 				url: "feedMemes.php",   
 				async: false,
@@ -474,8 +478,8 @@ if ($_SESSION['logged_user'] == "") {
 				// console.log($(this).children().attr("src"));
 				$("#pop-up").children().attr("src", $(this).children().attr("src"));
 				$("#pop-up").fadeIn("fast", function () {
-				$(this).css("display", "flex");
-					});
+					$(this).css("display", "flex");
+				});
 			});
 			$(".ratings").starRating({
 				//initialRating: $(this).attr("id"),

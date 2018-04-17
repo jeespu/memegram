@@ -67,6 +67,15 @@ h3 {
 	user-select: none;
 }
 
+.navbar-toggler {
+	outline: none;
+	border: none;
+}
+.navbar-toggler:focus {
+	outline: none;
+	border: none;
+}
+
 .jumbotron {
 	text-align: center;
 	background: rgba(255, 255, 255, .75);
@@ -440,6 +449,8 @@ body.hasHover #filter>li:hover a {
 #loader h3 span:last-child {
 	animation: blink 1000ms linear 1100ms 30 both;
 }
+
+
 /*–––––––––––––––––*/
 /*– Small devices –*/
 /*–––––––––––––––––*/
@@ -487,6 +498,12 @@ body.hasHover #filter>li:hover a {
 	#meme-row-right {
 		padding-left: 0;
 		padding-right: 0;
+	}
+	/* Some memes get hidden on tablets, some refactoring needed to fix this */
+	#meme-row-left {
+		/* display: inline-block;
+		width: 45%; */
+		display: none;
 	}
 	#navbar {
 		text-align: center;
@@ -552,10 +569,10 @@ body.hasHover #filter>li:hover a {
 and (max-width: 768px)
 and (orientation: landscape) {
 	.notification {
-		top: 0;
+		top: 50px;
 	}
 	#filter-container {
-		top: 0;
+		top: 50px;
 	}
 	#filter {
 		padding: 10px 10px 10px 10px;
@@ -563,25 +580,32 @@ and (orientation: landscape) {
 	#pop-up>img {
 		max-height: 100%;
 	}
-	.feed-nav {
+	/* .feed-nav {
 		display: none;
-	}
-	.meme-container {
-		/* force center */
-		margin: 0 auto !important;
+	} */
+	/* .meme-container {
 		max-width: 70%;
-	}
-	.meme-img {
+	} */
+	/* .meme-img {
 		height: 100vh;
-	}
+	} */
 }
 
 /* Extra small devices */
 @media (max-width: 576px) {
+	#meme-row-left {
+		/* display: inline-block;
+		width: 45%; */
+		display: initial;
+	}
 	.filter-item ~ a {
 		font-size: 0;
 	}
 	.filter-item {
 		font-size: 1.3em;
 	}
+	/* #meme-row-right .meme-container {
+		width: 100%;
+		float: none;
+	} */
 }
