@@ -9,10 +9,10 @@ $user = $_POST['username'];
 $email = $_POST['email'];
 $pass = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
-$noDuplicates = "SELECT username FROM user WHERE username='$user'";
+$noDuplicates = "SELECT username FROM user WHERE username='$user' OR email='$email'";
 $dupResult = mysqli_query($conn, $noDuplicates);
 
-if (mysql_num_rows($dupResult) > 0) {
+if (mysqli_num_rows($dupResult) > 0) {
   // Found a user with that name.
   header("Location: index.php");
   exit();
