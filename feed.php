@@ -241,7 +241,7 @@ if ($_SESSION['logged_user'] == "") {
 					if ( ($userID == $_SESSION['userID']) && ($_SESSION['modRights'] == 1)) {
 						$poststring .= sprintf('
 						<div id="%s" class="comment-container">
-							<div class="comment-author"><strong>%s<span>ADMIN</span></strong></div>
+							<div class="comment-author"><strong>%s <span>[admin]></span></strong></div>
 							<div class="row mx-auto">
 								<div class="comment col-10">%s</div>
 								<div class="delete-comment d-flex align-items-center justify-content-center col-2">
