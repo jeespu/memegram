@@ -2,6 +2,7 @@
    require 'connect.php';
    session_start();
 
+   // Get filter info from ajax. Not in use for now.
    $orderBy = $_POST['orderBy'];
    //if($orderBy == "top-rated") {
       $post = mysqli_query($conn, "SELECT * FROM post ORDER BY avgRating DESC");
