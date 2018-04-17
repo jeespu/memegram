@@ -2,22 +2,15 @@
    require 'connect.php';
    session_start();
 
-   // Get filter info from ajax. Not in use for now.
-   $orderBy = $_POST['orderBy'];
-   //if($orderBy == "top-rated") {
-      $post = mysqli_query($conn, "SELECT * FROM post ORDER BY avgRating DESC");
-   // }
+		$post = mysqli_query($conn, "SELECT * FROM post ORDER BY postID DESC");
 
-		$posts = array();
-		//$post = mysqli_query($conn, "SELECT * FROM post ORDER BY avgRating DESC");
-
-      while ($row = mysqli_fetch_array($post, MYSQLI_ASSOC)) {
-			$poststring = " ";
+      $row = mysqli_fetch_array($post, MYSQLI_ASSOC);
+			$poststring = "";
          $postID = $row['postID'];
          $pictureSource = $row['pictureSource'];
          //$addDate = $row['addDate'];
          $avgRating = $row['avgRating'];
-			$posterID = $row['posterID'];
+         $posterID = $row['posterID'];
 
 			// Get username and pic with posterID
 			$user = mysqli_query($conn, "SELECT username, profilePic FROM user WHERE userID='$posterID'");
@@ -81,8 +74,21 @@
 					$userrow = mysqli_fetch_array($user, MYSQLI_ASSOC);
 					$username = $userrow['username'];
 					$userID = $userrow['userID'];
+					$hasModRights = $userrow['modRights'];
 					// Add Comment String
-					if (($userID == $_SESSION['userID']) || $_SESSION['modRights'] == 1 )  {
+					if ( ($userID == $_SESSION['userID']) && ($_SESSION['modRights'] == 1)) {
+						$poststring .= sprintf('
+						<div id="%s" class="comment-container">
+							<div class="comment-author"><strong>%s <span style="color: #f58928" class="ml-1">ADMIN</span></strong></div>
+							<div class="row mx-auto">
+								<div class="comment col-10">%s</div>
+								<div class="delete-comment d-flex align-items-center justify-content-center col-2">
+									<i class="far fa-trash-alt item-regular"></i>
+									<i class="fas fa-trash-alt item-solid"></i>
+								</div>
+							</div>
+						</div>', $commentID, $username, $content);
+					} else if (($userID == $_SESSION['userID']) || $_SESSION['modRights'] == 1 )  {
 						$poststring .= sprintf('
 						<div id="%s" class="comment-container">
 							<div class="comment-author"><strong>%s</strong></div>
@@ -120,38 +126,10 @@
 				</div>
 			</div>
 		</div>
-	</div>', $postID);
-			// Add poststring to array
-			$posts[] = $poststring;
-		};
-		$_SESSION["posts"] = $posts;
+   </div>', $postID);
+
+   //if($_SESSION["postscopy"][0] != $poststring) {
+        echo $poststring;
+   //}
+   //$tempID = $postID;
 ?>
-
-<div id="meme-row-left" class="col-md-4 col-sm-6">
-			<?php
-				for ($i = 0; $i < 3; $i++) {
-					echo $_SESSION["posts"][0];
-					array_shift($_SESSION["posts"]);
-				}
-			?>
-		</div><!-- meme-row-left -->
-
-		<div id="meme-row-center" class="col-md-4 col-sm-6">
-			<?php
-				for ($i = 0; $i < 3; $i++) {
-					echo $_SESSION["posts"][0];
-					array_shift($_SESSION["posts"]);
-				}
-			?>
-		</div> <!-- meme-row-center -->
-
-
-		<div id="meme-row-right" class="col-md-4 col-sm-6">
-			<?php
-				for ($i = 0; $i < 3; $i++) {
-					echo $_SESSION["posts"][0];
-					array_shift($_SESSION["posts"]);
-            }
-			?>
-      </div> 
-      <?php// echo 'Filter' . $orderBy; ?>

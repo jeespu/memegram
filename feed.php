@@ -165,7 +165,7 @@ if ($_SESSION['logged_user'] == "") {
 	<div class="row meme-row justify-content-around">
 		<?php
 		$posts = array();
-		$post = mysqli_query($conn, "SELECT * FROM post ORDER BY addDate DESC");
+		$post = mysqli_query($conn, "SELECT * FROM post ORDER BY postID DESC");
 
       while ($row = mysqli_fetch_array($post, MYSQLI_ASSOC)) {
 			$poststring = " ";
@@ -293,6 +293,7 @@ if ($_SESSION['logged_user'] == "") {
 			// Add poststring to array
 			$posts[] = $poststring;
 		};
+		$_SESSION["postscopy"] = $posts;
 		$_SESSION["posts"] = $posts;
 		?>
 
@@ -407,6 +408,31 @@ if ($_SESSION['logged_user'] == "") {
 	// $(window).on("load", function () { 
 	// 	$("#loader").fadeOut();
 	// });
+	// REFRESH
+	window.setInterval(function () {
+		$.ajax({
+			type: "GET",
+			url: "refreshMemes.php",
+			async: false,
+			success: function (text) {
+				response = text;
+			}
+		});
+		$('#meme-row-left').prepend(response);
+		// Delete duplicate ids
+		$('[id]').each(function () {
+			var ids = $('[id="' + this.id + '"]');
+			// remove duplicate IDs
+			if (ids.length > 1 && ids[0] == this) {
+				$('#' + this.id).remove();
+			}
+		});
+		console.log("deleted duplicate ids");
+		console.log("refreshMemes");
+		reattachHandlers();
+	}, 10000)
+
+
 	$(".ratings").starRating({
 		//initialRating: $(this).attr("id"),
 		useFullStars: true,

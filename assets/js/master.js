@@ -1,19 +1,5 @@
 $(document).ready(function () {
 	
-	// TEST REFRESH
-	// window.setInterval(function () {
-	// 	$('.comments').load("feed.php .comment-container", function () { 
-	// 		$('[id]').each(function () {
-	// 			var ids = $('[id="' + this.id + '"]');
-	// 			// remove duplicate IDs
-	// 			if (ids.length > 1 && ids[0] == this) {
-	// 				$('#' + this.id).remove();
-	// 			}
-	// 		});
-	// 		console.log("deleted duplicate ids");
-	// 	})
-	// }, 5000)
-
 	// Enable tooltips
 	if (window.innerWidth > 768) {
 		$(function () {
