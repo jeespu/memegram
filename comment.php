@@ -4,7 +4,7 @@
    require "connect.php";
    $conn->set_charset("utf8mb4");
 
-   $comment = input($_POST['comment']);
+   $comment = $_POST['comment'];
    $postID = $_POST['postID'];
    $user = $_SESSION['userID'];
 

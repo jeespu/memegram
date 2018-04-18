@@ -152,7 +152,7 @@ if ($_SESSION['logged_user'] == "") {
 	<div class="row meme-row justify-content-around">
 		<?php
 
-		// Not working for some reasons?
+		// Get id of the latest post for setInterval()
 		$latestPost = mysqli_query($conn, "SELECT postID FROM post ORDER BY postID DESC;");
 		$latestPostRow = mysqli_fetch_array($latestPost, MYSQLI_ASSOC);
 		$_SESSION["latestPostID"] = $latestPostRow['postID'];
