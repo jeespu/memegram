@@ -481,8 +481,8 @@ if ($_SESSION['logged_user'] == "") {
 					success : function(text) {
 							response= text;
 					}
-				}).done( $('#meme-row-left').append(response) );
-				
+				});
+				$('#meme-row-left').append(response);
 			}
 
 			if (window.innerWidth > 576) {
@@ -493,7 +493,8 @@ if ($_SESSION['logged_user'] == "") {
 					success : function(text){
 							response= text;
 					}
-				}).done($('#meme-row-center').append(response));
+				});
+				$('#meme-row-center').append(response);
 			}
 
 			$.ajax({ type: "GET",   
@@ -502,7 +503,8 @@ if ($_SESSION['logged_user'] == "") {
 				success : function(text){
 						response= text;
 				}
-			}).done( $('#meme-row-right').append(response) );
+			});
+			$('#meme-row-right').append(response);
 			// Reattach event handlers
 			reattachHandlers();
 		}
