@@ -44,7 +44,7 @@ if ($_SESSION['logged_user'] == "") {
 		.jq-star {
 		width: 100px;
 		height: 100px;
-		margin: 0 5px 0 5px;
+		/* margin: 0 5px 0 5px; */
 		display: inline-block;
 		cursor: pointer;
 		}
@@ -88,7 +88,7 @@ if ($_SESSION['logged_user'] == "") {
 <div class="collapse navbar-collapse" id="navbarSupportedContent">
 	<ul class="navbar-nav ml-auto">
 		<li class="nav-item">
-			<a class="nav-link add-meme" href="#add-meme-form" id="add-meme-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Add Meme<i class="fas fa-plus ml-2"></i></a>
+			<a class="nav-link add-meme no-focus" href="#add-meme-form" id="add-meme-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Add Meme<i class="fas fa-plus ml-2"></i></a>
 			<!-- Add meme Dropdown -->
 			<div id="add-meme-form" class="nav-item dropdown-menu dropdown-menu-right" aria-labelledby="add-meme-dropdown">
 				<form action="linkMeme.php" method="POST">
@@ -153,11 +153,9 @@ if ($_SESSION['logged_user'] == "") {
 </div>
 
 <!-- For enlarging Memes -->
-<!-- <div id="pop-up-container"> -->
 	<div id="pop-up">
 		<img class="rounded select-disable" draggable="false"/>
 	</div>
-<!-- <div> -->
 
 <!-- Meme Feed-->
 <div id="feed-content" class="container-fluid">

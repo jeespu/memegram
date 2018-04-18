@@ -44,12 +44,13 @@ $(document).ready(function () {
 		ev.stopPropagation();
 	})
 
+	// Pop-up for larger meme images
+	// Set display to flex and hide. jQuery remembers the previous display state.
+	$("#pop-up").css("display", "flex").hide()
 	$(".meme-img").on("click", function () {
 		// console.log($(this).children().attr("src"));
 		$("#pop-up").children().attr("src", $(this).children().attr("src"));
-		$("#pop-up").fadeIn("fast", function () {
-			$(this).css("display", "flex");
-		});
+		$("#pop-up").fadeIn("fast");
 	});
 	$("#pop-up").on("click", function () {
 		$(this).fadeOut("fast");
@@ -238,9 +239,7 @@ function reattachHandlers() {
 	$(".meme-panel-item>.fa-comment").parent().on("click", showComments);
 	$(".meme-img").on("click", function () {
 		$("#pop-up").children().attr("src", $(this).children().attr("src"));
-		$("#pop-up").fadeIn("fast", function () {
-			$(this).css("display", "flex");
-		});
+		$("#pop-up").fadeIn("fast");
 	});
 	$(".ratings").starRating({
 		//initialRating: $(this).attr("id"),
