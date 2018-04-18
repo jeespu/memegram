@@ -2,7 +2,8 @@
    require 'connect.php';
    session_start();
 
-		$post = mysqli_query($conn, "SELECT * FROM post ORDER BY postID DESC");
+      // Get latest post with auto incremented postID
+		$post = mysqli_query($conn, "SELECT * FROM post ORDER BY postID DESC LIMIT 1");
 
       $row = mysqli_fetch_array($post, MYSQLI_ASSOC);
 			$poststring = "";

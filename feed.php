@@ -4,12 +4,7 @@ session_start();
 //Check if session is on
 if ($_SESSION['logged_user'] == "") {
 	header("Location: index.php");
-} //else {
-	// Check if logged user has mod rights
-	// $modUser = mysqli_query($conn, sprintf("SELECT modRights FROM user WHERE username = '%s'",$_SESSION['logged_user']));
-   // $modRow = mysqli_fetch_array($modUser, MYSQLI_ASSOC);
-	// $hasModRights = $_SESSION['modRights'];
-//}
+}
 ?>
 
 <!DOCTYPE html>
@@ -21,7 +16,6 @@ if ($_SESSION['logged_user'] == "") {
 	<meta charset="utf-8"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
 	<title>Meme Site Project</title>
-	<!-- <link rel="stylesheet" href="assets/lib/bootstrap.min.css"> -->
 	<link rel="stylesheet" href="assets/lib/bootstrap4/css/bootstrap.min.css"/>
 	<link rel="stylesheet" href="assets/css/master.css"/>
 	<link href="https://fonts.googleapis.com/css?family=Cabin:400,600,700|Luckiest+Guy" rel="stylesheet"/>
@@ -59,19 +53,13 @@ if ($_SESSION['logged_user'] == "") {
 		/* stroke: #000; */
 		stroke-linejoin: round;
 		}
-		/* un-used */
-		/* .jq-shadow {
-		-webkit-filter: drop-shadow( -2px -2px 2px #888 );
-		filter: drop-shadow( -2px -2px 2px #888 );
-		} */
 	</style>
 </head>
 
 <body>
 
-	<!-- Background-->
-	<div id="bg-gradient" style="background: linear-gradient(to bottom, #f58928, #351b5d);">
-	</div>
+<!-- Background Gradient -->
+<div id="bg-gradient" style="background: linear-gradient(to bottom, #f58928, #351b5d);"></div>
 
 <!-- Notification banner -->
 <div class="notification">
@@ -81,17 +69,18 @@ if ($_SESSION['logged_user'] == "") {
 <!-- Navbar -->
 <nav id="navbar" class="navbar fixed-top navbar-expand-md navbar-dark bg-dark feed-nav">
 	<a id="logo" class="navbar-brand" href="#">Memegram</a>
-	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-content" aria-controls="navbar-content"
 	aria-expanded="false" aria-label="Toggle navigation">
 	<span class="navbar-toggler-icon"></span>
 </button>
-<div class="collapse navbar-collapse" id="navbarSupportedContent">
+<div class="collapse navbar-collapse" id="navbar-content">
 	<ul class="navbar-nav ml-auto">
 		<li class="nav-item">
 			<a class="nav-link add-meme no-focus" href="#add-meme-form" id="add-meme-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Add Meme<i class="fas fa-plus ml-2"></i></a>
 			<!-- Add meme Dropdown -->
 			<div id="add-meme-form" class="nav-item dropdown-menu dropdown-menu-right" aria-labelledby="add-meme-dropdown">
 				<form action="linkMeme.php" method="POST">
+					<!-- For uploading files, not yet implemented -->
 					<!-- <li>
 						<label for="pic">Upload Picture:</label>
 						<button class="col-12 orange-btn btn btn-warning fake-pic-button" type="button">Choose File</button>

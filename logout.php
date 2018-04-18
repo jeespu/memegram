@@ -33,17 +33,17 @@ session_destroy();
 	<!-- Navbar -->
 	<nav id="navbar" class="navbar fixed-top navbar-expand-md navbar-dark bg-dark">
 		<a id="logo" class="navbar-brand" href="#">Memegram</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-content" aria-controls="navbar-content"
 		   aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
-		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		<div class="collapse navbar-collapse" id="navbar-content">
 			<ul class="navbar-nav ml-auto">
 				<li class="nav-item">
 					<a class="nav-link sign-up" href="#">Sign Up</a>
 				</li>
 				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="#login" id="login-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+					<a class="nav-link dropdown-toggle no-focus" href="#login" id="login-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
 					   aria-expanded="false">
 						Login
 					</a>
