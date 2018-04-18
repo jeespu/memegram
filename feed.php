@@ -151,6 +151,12 @@ if ($_SESSION['logged_user'] == "") {
 
 	<div class="row meme-row justify-content-around">
 		<?php
+
+		// Not working for some reasons?
+		$latestPost = mysqli_query($conn, "SELECT postID FROM post ORDER BY postID DESC;");
+		$latestPostRow = mysqli_fetch_array($latestPost, MYSQLI_ASSOC);
+		$_SESSION["latestPostID"] = $latestPostRow['postID'];
+		
 		$posts = array();
 		$post = mysqli_query($conn, "SELECT * FROM post ORDER BY postID DESC");
 
@@ -173,7 +179,7 @@ if ($_SESSION['logged_user'] == "") {
 			<div id="%s" class="meme-container rounded my-2 pop">
 				<div class="row meme-poster py-2">
 					<div class="col-12 pr-auto align-items-center">
-						<img class="img-fluid rounded-circle ml-2" src="%s"><span class="ml-2">%s</span>
+						<img class="rounded-circle ml-2" src="%s"><span class="ml-2">%s</span>
 					</div>
 				</div>
 				<div class="row meme-img select-disable ">
@@ -280,15 +286,13 @@ if ($_SESSION['logged_user'] == "") {
 			// Add poststring to array
 			$posts[] = $poststring;
 		};
-		$_SESSION["postscopy"] = $posts;
 		$_SESSION["posts"] = $posts;
 		?>
 
 		<div id="meme-row-left" class="col-md-4 col-sm-6">
 			<?php
 				for ($i = 0; $i < 3; $i++) {
-					echo $_SESSION["posts"][0];
-					array_shift($_SESSION["posts"]);
+					echo array_shift($_SESSION["posts"]);
 				}
 			?>
 			<script>
@@ -360,8 +364,7 @@ if ($_SESSION['logged_user'] == "") {
 		<div id="meme-row-center" class="col-md-4 col-sm-6">
 			<?php
 				for ($i = 0; $i < 3; $i++) {
-					echo $_SESSION["posts"][0];
-					array_shift($_SESSION["posts"]);
+					echo array_shift($_SESSION["posts"]);
 				}
 			?>
 		</div> <!-- meme-row-center -->
@@ -370,8 +373,7 @@ if ($_SESSION['logged_user'] == "") {
 		<div id="meme-row-right" class="col-md-4 col-sm-6">
 			<?php
 				for ($i = 0; $i < 3; $i++) {
-					echo $_SESSION["posts"][0];
-					array_shift($_SESSION["posts"]);
+					echo array_shift($_SESSION["posts"]);
 				}
 			?>
 		</div> <!-- meme-row-right-->
@@ -400,22 +402,20 @@ if ($_SESSION['logged_user'] == "") {
 		$.ajax({
 			type: "GET",
 			url: "refreshMemes.php",
-			async: false,
 			success: function (text) {
-				response = text;
+				$('#meme-row-left').prepend(text);
 			}
 		});
-		$('#meme-row-left').prepend(response);
 		// Delete duplicate ids
-		$('[id]').each(function () {
-			var ids = $('[id="' + this.id + '"]');
-			// remove duplicate IDs
-			if (ids.length > 1 && ids[0] == this) {
-				$('#' + this.id).remove();
-			}
-		});
-		console.log("deleted duplicate ids");
-		console.log("refreshMemes");
+		// $('[id]').each(function () {
+		// 	var ids = $('[id="' + this.id + '"]');
+		// 	// remove duplicate IDs
+		// 	if (ids.length > 1 && ids[0] == this) {
+		// 		$('#' + this.id).remove();
+		// 	}
+		// });
+		//console.log("deleted duplicate ids");
+		//console.log("refreshMemes");
 		reattachHandlers();
 	}, 20000)
 
@@ -455,10 +455,10 @@ if ($_SESSION['logged_user'] == "") {
 	});
 
 	// Infinity scroll
-	$(window).on("scroll", function () {
-		// Add some extra pixels to load more memes just before the end of the document
+	$(window).one("scroll", function getMemes() {
 		var height = $(this).height() + 100; 
 		if ($(this).scrollTop() + height >= $(document).height()) {
+			$(window).off("scroll");
 			var response;
 			// If on mobile, add only one pick
 			if (window.innerWidth > 768) {
@@ -466,35 +466,36 @@ if ($_SESSION['logged_user'] == "") {
 					url: "feedMemes.php",   
 					async: false,
 					success : function(text) {
-							response= text;
+						response = text;
 					}
 				});
 				$('#meme-row-left').append(response);
 			}
-
 			if (window.innerWidth > 576) {
 				$.ajax({ 
 					type: "GET",   
 					url: "feedMemes.php",   
 					async: false,
 					success : function(text){
-							response= text;
+						response = text;
 					}
 				});
 				$('#meme-row-center').append(response);
 			}
-
 			$.ajax({ type: "GET",   
 				url: "feedMemes.php",   
 				async: false,
 				success : function(text){
-						response= text;
+					response = text;
 				}
 			});
 			$('#meme-row-right').append(response);
-			// Reattach event handlers
+			// Reattach event handlers after ajax-calls
 			reattachHandlers();
+			//$(window).off("scroll", getMemes);
+
 		}
+		$(window).one("scroll", getMemes);
 	});
 </script>
 </body>

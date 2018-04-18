@@ -24,7 +24,7 @@
 	}
 }
 .pop {
-	animation: pop 800ms ease backwards;
+	animation: pop 500ms ease backwards;
 }
 
 html {

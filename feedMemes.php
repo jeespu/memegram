@@ -1,7 +1,9 @@
 <?php 	
 	session_start();
-	//for ($i = 0; $i < 2; $i++) {
-		echo $_SESSION["posts"][0];
-		array_shift($_SESSION["posts"]);
-	//}
+	//if(array_shift($_SESSION["posts"]) != NULL) {
+		//for ($i = 0; $i < 1; $i++) { // ammount of memes to be printed
+			echo array_shift($_SESSION["posts"]);
+	//}else {
+	// 	echo '<script>console.log("All Memes on Feed!")</script>';
+	// }
 ?>

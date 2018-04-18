@@ -3,14 +3,12 @@
    session_start();
 
       // Get latest post with auto incremented postID
-		$post = mysqli_query($conn, "SELECT * FROM post ORDER BY postID DESC LIMIT 1");
+		$post = mysqli_query($conn, "SELECT postID, pictureSource, posterID FROM post ORDER BY postID DESC LIMIT 1;");
 
       $row = mysqli_fetch_array($post, MYSQLI_ASSOC);
 			$poststring = "";
          $postID = $row['postID'];
          $pictureSource = $row['pictureSource'];
-         //$addDate = $row['addDate'];
-         $avgRating = $row['avgRating'];
          $posterID = $row['posterID'];
 
 			// Get username and pic with posterID
@@ -31,7 +29,7 @@
 					<img class="mx-auto d-block" src="%s">
 				</div>
 				<div class="row ratings-row text-center">
-					<div data-rating="%s" class="ratings"></div>
+					<div class="ratings"></div>
 				</div>
 				<div class="row meme-panel d-flex align-items-center">
 					<div class="col-3 d-flex justify-content-start">
@@ -59,7 +57,7 @@
 						</div>
 					</div>
 				</div> <!--meme-panel -->
-				<div class="comments rounded">', $postID, $profilePic, $username, $pictureSource, $avgRating);
+				<div class="comments rounded">', $postID, $profilePic, $username, $pictureSource);
 
 			// Add Comments
 			$comment = mysqli_query($conn, "SELECT * FROM comment");
@@ -129,8 +127,10 @@
 		</div>
    </div>', $postID);
 
-   //if($_SESSION["postscopy"][0] != $poststring) {
+   if($_SESSION["latestPostID"] !== $postID) {
         echo $poststring;
-   //}
-   //$tempID = $postID;
+        $_SESSION["latestPostID"] = $postID;
+   } //else {
+   //    echo '<script>console.log("Latest meme already on feed")</script>';
+   // }
 ?>
