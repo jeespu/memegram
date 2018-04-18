@@ -430,7 +430,7 @@ if ($_SESSION['logged_user'] == "") {
 		console.log("deleted duplicate ids");
 		console.log("refreshMemes");
 		reattachHandlers();
-	}, 10000)
+	}, 20000)
 
 
 	$(".ratings").starRating({
@@ -481,8 +481,8 @@ if ($_SESSION['logged_user'] == "") {
 					success : function(text) {
 							response= text;
 					}
-				});
-				$('#meme-row-left').append(response);
+				}).done( $('#meme-row-left').append(response) );
+				
 			}
 
 			if (window.innerWidth > 576) {
@@ -493,8 +493,7 @@ if ($_SESSION['logged_user'] == "") {
 					success : function(text){
 							response= text;
 					}
-				});
-				$('#meme-row-center').append(response);
+				}).done($('#meme-row-center').append(response));
 			}
 
 			$.ajax({ type: "GET",   
@@ -503,8 +502,7 @@ if ($_SESSION['logged_user'] == "") {
 				success : function(text){
 						response= text;
 				}
-			});
-			$('#meme-row-right').append(response);
+			}).done( $('#meme-row-right').append(response) );
 			// Reattach event handlers
 			reattachHandlers();
 		}
